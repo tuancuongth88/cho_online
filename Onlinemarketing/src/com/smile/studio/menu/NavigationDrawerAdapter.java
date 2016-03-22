@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.example.onlinemarketing.R;
+import com.onlinemarketing.object.CategoryVO;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
-	List<MenuCategory> data = Collections.emptyList();
+	List<CategoryVO> data = Collections.emptyList();
 	private LayoutInflater inflater;
 	private Context context;
 
-	public NavigationDrawerAdapter(Context context, List<MenuCategory> data) {
+	public NavigationDrawerAdapter(Context context, List<CategoryVO> data) {
 		this.setContext(context);
 		inflater = LayoutInflater.from(context);
 		this.data = data;
@@ -38,7 +39,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
 	@Override
 	public void onBindViewHolder(MyViewHolder holder, int position) {
-		MenuCategory current = data.get(position);
+		CategoryVO current = data.get(position);
 		holder.init(current);
 	}
 
@@ -57,19 +58,19 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
 	class MyViewHolder extends RecyclerView.ViewHolder {
 
-		private ImageView imageview = null;
+//		private ImageView imageview = null;
 		private TextView title = null;
 
 		public MyViewHolder(View itemView) {
 			super(itemView);
-			imageview = (ImageView) itemView.findViewById(R.id.imageview);
-			imageview.setColorFilter(context.getResources().getColor(R.color.white));
+//			imageview = (ImageView) itemView.findViewById(R.id.imageview);
+//			imageview.setColorFilter(context.getResources().getColor(R.color.white));
 			title = (TextView) itemView.findViewById(R.id.title);
 		}
 
-		public void init(MenuCategory item) {
-			imageview.setImageResource(item.getImageRes());
-			title.setText(item.getTitleRes());
+		public void init(CategoryVO item) {
+//			imageview.setImageResource(item.getImageRes());
+			title.setText(item.getName());
 		}
 	}
 }
