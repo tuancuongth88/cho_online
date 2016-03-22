@@ -3598,8 +3598,10 @@ containing a value of this type.
         public static final int decline=0x7f0b0003;
         public static final int drawer_close=0x7f0b0050;
         public static final int drawer_open=0x7f0b0051;
-        public static final int facebook_app_id=0x7f0b0055;
+        public static final int facebook_app_id=0x7f0b0057;
         public static final int messenger_send_button_text=0x7f0b002b;
+        public static final int navigation_drawer_close=0x7f0b0056;
+        public static final int navigation_drawer_open=0x7f0b0055;
         /**  Description of the button that clears the search input when searching for places. 
          */
         public static final int place_autocomplete_clear_button=0x7f0b0029;
@@ -3608,15 +3610,15 @@ containing a value of this type.
         public static final int place_autocomplete_search_hint=0x7f0b0028;
         public static final int store_picture_message=0x7f0b0001;
         public static final int store_picture_title=0x7f0b0000;
-        public static final int title_activity_back_list=0x7f0b0058;
-        public static final int title_activity_favorite=0x7f0b0059;
+        public static final int title_activity_back_list=0x7f0b005a;
+        public static final int title_activity_favorite=0x7f0b005b;
         public static final int title_activity_home=0x7f0b0052;
         public static final int title_activity_home_page=0x7f0b0054;
-        public static final int title_activity_list_save_search=0x7f0b005b;
-        public static final int title_activity_poster_detail=0x7f0b0057;
-        public static final int title_activity_product_detail=0x7f0b0056;
+        public static final int title_activity_list_save_search=0x7f0b005d;
+        public static final int title_activity_poster_detail=0x7f0b0059;
+        public static final int title_activity_product_detail=0x7f0b0058;
         public static final int title_activity_register=0x7f0b0053;
-        public static final int title_activity_save_news_list=0x7f0b005a;
+        public static final int title_activity_save_news_list=0x7f0b005c;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
  Text on a button that allows a user to make a payment with Google Wallet

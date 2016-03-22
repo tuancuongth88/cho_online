@@ -45,14 +45,7 @@ public class FragmentDrawer extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-		
-		int n = SystemConfig.oOputproduct.getCategoryVO().size();
-		String []title = new String[n];
-		for(int i=0; i< n; i++){
-			title[i]= SystemConfig.oOputproduct.getCategoryVO().get(i).getName();
-		Debug.e("ten category: "+ SystemConfig.oOputproduct.getCategoryVO().get(i).getName());
-		}
-		
+	
 		adapter = new NavigationDrawerAdapter(getActivity(), SystemConfig.oOputproduct.getCategoryVO());
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -60,12 +53,13 @@ public class FragmentDrawer extends Fragment {
 				new OnItemTouchListener(getActivity(), recyclerView, new OnItemTouchListener.ClickListener() {
 					@Override
 					public void onClick(View view, int position) {
-						drawerListener.onDrawerItemSelected(view, position);
-						mDrawerLayout.closeDrawer(containerView);
+//						drawerListener.onDrawerItemSelected(view, position);
+//						mDrawerLayout.closeDrawer(containerView);
 					}
 
 					@Override
 					public void onLongClick(View view, int position) {
+						
 
 					}
 				}));
