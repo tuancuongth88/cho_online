@@ -1,0 +1,50 @@
+package com.lib.fragment;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+
+public class TabFragmentAdapter extends FragmentPagerAdapter {
+
+	private ArrayList<Fragment> fragments;
+	private List<String> titles;
+
+	@Deprecated
+	public TabFragmentAdapter(FragmentManager fm, ArrayList<Fragment> fragments, List<String> titles) {
+		super(fm);
+		this.fragments = fragments;
+		this.titles = titles;
+	}
+
+	public TabFragmentAdapter(Context context, FragmentManager fm, HashMap<Integer, Fragment> mapFragments) {
+		super(fm);
+		fragments = new ArrayList<Fragment>();
+		titles = new ArrayList<String>();
+		for (Entry<Integer, Fragment> map : mapFragments.entrySet()) {
+			this.titles.add(context.getString(map.getKey()));
+			this.fragments.add(map.getValue());
+		}
+	}
+
+	@Override
+	public Fragment getItem(int position) {
+		return fragments.get(position % titles.size());
+	}
+
+	@Override
+	public int getCount() {
+		return fragments.size();
+	}
+
+	@Override
+	public CharSequence getPageTitle(int position) {
+		return titles.get(position);
+	}
+
+}
