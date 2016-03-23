@@ -29,6 +29,7 @@ public class SystemConfig {
 	public static final String HistoryMsg = "history";
 	public static final String sendUserChar = "user";
 	public static final String DeleteMessage = "delete";
+	public static final String BlockMessage = "block";
 	
 	public static final int statusLogin = 1;
 	public static final int statusRegister = 2;
@@ -42,6 +43,7 @@ public class SystemConfig {
 	public static final int statusGetHistoryMessage = 6;
 	public static final int statusDeleteMessage = 7;
 	public static final int statusDeleteGroupMessage = 8;
+	public static final int statusBlockUser = 9;
 	
 	public static final int statusProductSave = 1;
 	public static final int statusErrorReport = 2;

@@ -36,6 +36,7 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 	TextView txtalert;
 	Button btnOk,btnCancle;
 	 int position_arr;
+	 int status_callws;
 	public ListMessageAdapter(Context context, int resource, List<MessageVO> objects) {
 		super(context, resource, objects);
 		this.context = context;
@@ -85,19 +86,20 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 		btnDelet.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				switch (v.getId()) {
-				case R.id.itemDeleteMessage:
 					Integer index = (Integer) v.getTag();
-					  int id = index;
-					  dialogDelete(id);
-					break;
-
-				default:
-					break;
-				}
-				  
+					int id = index;
+					dialogDelete(id, SystemConfig.statusDeleteGroupMessage);
 			}
-		});             
+		}); 
+		btnBock.setTag(position);
+		btnBock.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Integer index = (Integer) v.getTag();
+				int id = index;
+				dialogDelete(id, SystemConfig.statusBlockUser);
+			}
+		});
 		holder.init(listData.get(position));
 		return convertView;
 	}
@@ -108,24 +110,38 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 		ChatDialog objchat = new ChatDialog(context,id);
 		objchat.run(SystemConfig.statusDeleteGroupMessage);
 		
-		
 	}
-	public void dialogDelete( int position) {
+	public void blockUser(int position){
+		MessageVO objmessage = listData.get(position);
+		int id = objmessage.getReceiver_id();
+		ChatDialog objchat = new ChatDialog(context,id);
+		objchat.run(SystemConfig.statusDeleteGroupMessage);
+	}
+	public void dialogDelete( int position, int status) {
+		status_callws = status;
+		position_arr = position;
 		dialog = new Dialog(context);
 		dialog.setContentView(R.layout.dialog_delete);
 		dialog.setTitle("Thông Báo");
 		txtalert = (TextView) dialog.findViewById(R.id.txtalert);
-		txtalert.setText("Bạn muốn xóa toàn bộ cuộc trò truyên!");
+		if(status_callws == SystemConfig.statusDeleteGroupMessage)
+			txtalert.setText("Bạn muốn xóa toàn bộ cuộc trò truyên!");
+		if(status_callws == SystemConfig.statusBlockUser)
+			txtalert.setText("Bạn chặn người này!");
 		txtalert.setTextSize(18);
 		btnOk = (Button) dialog.findViewById(R.id.btn_Ok_Delete);
 		btnCancle = (Button) dialog.findViewById(R.id.btn_Cancle_Delete);
-		position_arr = position;
 		btnOk.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				deletegroup(position_arr);
-				listData.remove(position_arr);
-				notifyDataSetChanged();
+				if(status_callws == SystemConfig.statusDeleteGroupMessage){
+					deletegroup(position_arr);
+					listData.remove(position_arr);
+					notifyDataSetChanged();
+				}
+				if(status_callws == SystemConfig.statusBlockUser){
+					blockUser(position_arr);
+				}
 				dialog.dismiss();
 			}
 		});

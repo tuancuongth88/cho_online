@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -41,6 +42,7 @@ public class ChatDialog {
 	ListMessageAdapter adapterListMessage;
 	static Dialog dialog;
 	Button btn_SMS, btnListChat, btnSend, btnOk, btnCancle;
+	ImageView blockchat;
 	EditText editMessage, editSendMessage;
 	TextView txtShowMessageChat, txtalert;
 	TableLayout tab;
@@ -79,6 +81,11 @@ public class ChatDialog {
 			status_callWS = SystemConfig.statusDeleteGroupMessage;
 			new MessageAsystask().execute(status);
 		}
+		else if (status == SystemConfig.statusBlockUser) {
+			status_callWS = SystemConfig.statusBlockUser;
+			new MessageAsystask().execute(status);
+		}
+		
 	}
 
 	public void dialogListMessage() {
@@ -284,6 +291,10 @@ public class ChatDialog {
 						message_id);
 			case SystemConfig.statusDeleteGroupMessage:
 				oOputMsg = message.paserDeleteGroupMsg(SystemConfig.user_id,
+						SystemConfig.session_id, SystemConfig.device_id,
+						idProduct);
+			case SystemConfig.statusBlockUser:
+				oOputMsg = message.paserBlockUser(SystemConfig.user_id,
 						SystemConfig.session_id, SystemConfig.device_id,
 						idProduct);
 			}

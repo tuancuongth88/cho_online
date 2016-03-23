@@ -13,6 +13,7 @@ import com.onlinemarketing.config.SystemConfig;
 import com.onlinemarketing.fragment.FragmentProductDetail;
 import com.onlinemarketing.json.JsonProduct;
 import com.onlinemarketing.object.Output;
+import com.onlinemarketing.util.ChatDialog;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import android.app.Dialog;
@@ -31,7 +32,7 @@ import android.widget.EditText;
 public class ProductDetailActivity extends FragmentActivity implements OnClickListener {
 	CirclePageIndicator mIndicator;
 	ArrayList<Fragment> fragments;
-	Button btnSendSMS_Detail, btnCall, btnPoster, btnProducSave, btnErrorReport;
+	Button btnSendSMS_Detail, btnCall, btnPoster, btnProducSave, btnErrorReport, btnChatDirectly_Detail;
 	EditText editErrorReport;
 	Dialog dialog;
 	Button btnOk, btnCancle;
@@ -62,6 +63,8 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 		btnPoster = (Button) findViewById(R.id.btnPoster_Detail);
 		btnProducSave = (Button) findViewById(R.id.btnSave_Detail);
 		btnErrorReport = (Button) findViewById(R.id.btnReportViolations_Detail);
+		btnChatDirectly_Detail = (Button) findViewById(R.id.btnChatDirectly_Detail);
+		btnChatDirectly_Detail.setOnClickListener(this);
 		btnErrorReport.setOnClickListener(this);
 		btnProducSave.setOnClickListener(this);
 		btnSendSMS_Detail.setOnClickListener(this);
@@ -113,7 +116,13 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 				new ProductSaveAndReportAsynTask().execute(SystemConfig.statusProductSave);
 			}
 			break;
-
+		case R.id.btnChatDirectly_Detail:
+			ChatDialog objdialog =new ChatDialog(getApplicationContext(), 1);
+			ChatDialog chat = new ChatDialog(this);
+			chat.run(SystemConfig.statusGetHistoryMessage);
+			chat.dialogChat(1);
+			break;
+			
 		case R.id.btnReportViolations_Detail:
 			dialogErrorReport();
 			break;
@@ -189,5 +198,6 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 			super.onPostExecute(result);
 		}
 	}
+	
 
 }

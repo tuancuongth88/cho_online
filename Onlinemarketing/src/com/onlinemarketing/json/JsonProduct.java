@@ -2,6 +2,7 @@ package com.onlinemarketing.json;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -196,6 +197,71 @@ public class JsonProduct {
 			Debug.e(e.toString());
 		}
 		return obj;
+	}
+	
+	public OutputProduct paserProductDetail(String user_id, String session_id, String device_id, int id) {
+		OutputProduct obj = new OutputProduct();
+		List<String> img = new ArrayList<String>();
+		String str = null;
+		// check email password
+		try {
+			request = new StringBuilder(SystemConfig.API);
+			request.append(SystemConfig.Product + "/" + id);
+			request.append("?user_id=").append(URLEncoder.encode(user_id, "UTF-8"));
+			request.append("&session_id=").append(URLEncoder.encode(session_id, "UTF-8"));
+			request.append("&device_id=").append(URLEncoder.encode(device_id, "UTF-8"));
+			str = Util.getjSonUrl(request.toString(), SystemConfig.httppost);
+			jsonObject = new JSONObject(str);
+			obj.setCode(jsonObject.getInt("code"));
+			obj.setMessage(jsonObject.getString("message"));
+			obj.setSession_id(jsonObject.getString("session_id"));
+			JSONObject objjson_product = jsonObject.getJSONObject("data");
+			if (obj.getCode() == Constan.getIntProperty("success")) {
+				ArrayList<ProductVO> arrProduct = new ArrayList<ProductVO>();
+					ProductVO objproduct = new ProductVO();
+					objproduct.setId(objjson_product.getInt("id"));
+					objproduct.setName(objjson_product.get("name").toString());
+					objproduct.setAvatar(objjson_product.get("avatar").toString());
+					objproduct.setPrice(objjson_product.get("price").toString());
+					objproduct.setPrice_id(objjson_product.getInt("price_id"));
+					objproduct.setCategory_id(objjson_product.getInt("category_id"));
+					objproduct.setUser_id(objjson_product.getInt("user_id"));
+					objproduct.setType_id(objjson_product.getInt("type_id"));
+					objproduct.setCity_id(objjson_product.getInt("city_id"));
+					objproduct.setStartdate(objjson_product.get("start_time").toString());
+					objproduct.setStatus(objjson_product.getInt("status"));
+					objproduct.setPosition(objjson_product.getInt("position"));
+					objproduct.setDelete_at(objjson_product.get("deleted_at").toString());
+					objproduct.setCreate_at(objjson_product.get("created_at").toString());
+					objproduct.setDescription(objjson_product.getString("description"));
+					objproduct.setCategory_name(objjson_product.getString("category_name"));
+					objproduct.setType_name(objjson_product.getString("type_name"));
+					objproduct.setCity_name(objjson_product.getString("city_name"));
+					objproduct.setLat(objjson_product.getString("lat"));
+					objproduct.setLog(objjson_product.getString("long"));
+					objproduct.setStatus_name(objjson_product.getString("status_name"));
+					objproduct.setUser_name(objjson_product.getString("user_name"));
+					
+					JSONArray objImage = objjson_product.getJSONArray("image_list");
+					
+					for (int i = 0; i < objImage.length(); i++) {
+						JSONObject objimg = objImage.getJSONObject(i);
+						String linkimage = objimg.getString("image_url");
+						img.add(linkimage);
+					}
+					objproduct.setArrImageDetail(img);
+					
+					arrProduct.add(objproduct);
+					Debug.e("objproduct: " + objproduct.getAvatar());
+				obj.setProductVO(arrProduct);
+			}
+
+		} catch (Exception e) {
+			Debug.e(e.toString());
+		}
+
+		return obj;
+
 	}
 
 }
