@@ -299,19 +299,19 @@ public final class R {
 		public static final int ic_plusone_small_off_client = 0x7f020084;
 		public static final int ic_plusone_standard_off_client = 0x7f020085;
 		public static final int ic_plusone_tall_off_client = 0x7f020086;
-		public static final int messenger_bubble_large_blue = 0x7f020091;
-		public static final int messenger_bubble_large_white = 0x7f020092;
-		public static final int messenger_bubble_small_blue = 0x7f020093;
-		public static final int messenger_bubble_small_white = 0x7f020094;
-		public static final int messenger_button_blue_bg_round = 0x7f020095;
-		public static final int messenger_button_blue_bg_selector = 0x7f020096;
-		public static final int messenger_button_send_round_shadow = 0x7f020097;
-		public static final int messenger_button_white_bg_round = 0x7f020098;
-		public static final int messenger_button_white_bg_selector = 0x7f020099;
-		public static final int places_ic_clear = 0x7f02009a;
-		public static final int places_ic_search = 0x7f02009b;
-		public static final int powered_by_google_dark = 0x7f02009c;
-		public static final int powered_by_google_light = 0x7f02009d;
+		public static final int messenger_bubble_large_blue = 0x7f020095;
+		public static final int messenger_bubble_large_white = 0x7f020096;
+		public static final int messenger_bubble_small_blue = 0x7f020097;
+		public static final int messenger_bubble_small_white = 0x7f020098;
+		public static final int messenger_button_blue_bg_round = 0x7f020099;
+		public static final int messenger_button_blue_bg_selector = 0x7f02009a;
+		public static final int messenger_button_send_round_shadow = 0x7f02009b;
+		public static final int messenger_button_white_bg_round = 0x7f02009c;
+		public static final int messenger_button_white_bg_selector = 0x7f02009d;
+		public static final int places_ic_clear = 0x7f02009e;
+		public static final int places_ic_search = 0x7f02009f;
+		public static final int powered_by_google_dark = 0x7f0200a0;
+		public static final int powered_by_google_light = 0x7f0200a1;
 	}
 	public static final class id {
 		public static final int adjust_height = 0x7f06000d;
@@ -408,17 +408,17 @@ public final class R {
 		public static final int com_facebook_device_auth_dialog_fragment = 0x7f030023;
 		public static final int com_facebook_login_fragment = 0x7f030024;
 		public static final int com_facebook_tooltip_bubble = 0x7f030025;
-		public static final int dialog_about_application = 0x7f030027;
-		public static final int messenger_button_send_blue_large = 0x7f03003d;
-		public static final int messenger_button_send_blue_round = 0x7f03003e;
-		public static final int messenger_button_send_blue_small = 0x7f03003f;
-		public static final int messenger_button_send_white_large = 0x7f030040;
-		public static final int messenger_button_send_white_round = 0x7f030041;
-		public static final int messenger_button_send_white_small = 0x7f030042;
-		public static final int place_autocomplete_fragment = 0x7f030043;
-		public static final int place_autocomplete_item_powered_by_google = 0x7f030044;
-		public static final int place_autocomplete_item_prediction = 0x7f030045;
-		public static final int place_autocomplete_progress = 0x7f030046;
+		public static final int dialog_about_application = 0x7f030028;
+		public static final int messenger_button_send_blue_large = 0x7f03003e;
+		public static final int messenger_button_send_blue_round = 0x7f03003f;
+		public static final int messenger_button_send_blue_small = 0x7f030040;
+		public static final int messenger_button_send_white_large = 0x7f030041;
+		public static final int messenger_button_send_white_round = 0x7f030042;
+		public static final int messenger_button_send_white_small = 0x7f030043;
+		public static final int place_autocomplete_fragment = 0x7f030044;
+		public static final int place_autocomplete_item_powered_by_google = 0x7f030045;
+		public static final int place_autocomplete_item_prediction = 0x7f030046;
+		public static final int place_autocomplete_progress = 0x7f030047;
 	}
 	public static final class raw {
 		public static final int gtm_analytics = 0x7f050000;
