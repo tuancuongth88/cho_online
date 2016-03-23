@@ -3,6 +3,7 @@ package com.onlinemarketing.activity;
 import java.util.ArrayList;
 
 import com.example.onlinemarketing.R;
+import com.lib.Debug;
 import com.onlinemarketing.config.SystemConfig;
 import com.onlinemarketing.fragment.FragmentCategory;
 import com.onlinemarketing.object.Output;
@@ -61,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawerLis
 
 	@Override
 	public void onDrawerItemSelected(View view, int position) {
-
+		Debug.e("sssssssssss");
 	}
 
 }
