@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+     tools:context="com.example.onlinemarketing.MainActivity" >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -36,20 +37,20 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer_left"
-        android:name="com.smile.studio.menu.FragmentDrawer"
+        android:name="com.smile.studio.menu.FragmentDrawerLeft"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        app:layout="@layout/fragment_navigation_drawer_left"
+        tools:layout="@layout/fragment_navigation_drawer_left" />
 
     <fragment
         android:id="@+id/fragment_navigation_drawer_right"
-        android:name="com.smile.studio.menu.FragmentDrawer"
+        android:name="com.smile.studio.menu.FragmentDrawerRight"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        app:layout="@layout/fragment_navigation_drawer_left"
+        tools:layout="@layout/fragment_navigation_drawer_left" />
 
 </android.support.v4.widget.DrawerLayout>

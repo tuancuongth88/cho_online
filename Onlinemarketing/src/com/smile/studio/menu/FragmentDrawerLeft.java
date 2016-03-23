@@ -1,9 +1,7 @@
 package com.smile.studio.menu;
 
 import com.example.onlinemarketing.R;
-import com.lib.Debug;
 import com.lib.recycler.OnItemTouchListener;
-import com.onlinemarketing.activity.GlobalApp;
 import com.onlinemarketing.config.SystemConfig;
 
 import android.annotation.TargetApi;
@@ -19,16 +17,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentDrawer extends Fragment {
+public class FragmentDrawerLeft extends Fragment {
 
 	private RecyclerView recyclerView = null;
 	private ActionBarDrawerToggle mDrawerToggle = null;
 	private DrawerLayout mDrawerLayout = null;
-	private NavigationDrawerAdapter adapter = null;
+	private NavigationDrawerLeftAdapter adapter = null;
 	private View containerView = null;
 	private FragmentDrawerListener drawerListener = null;
 
-	public FragmentDrawer() {
+	public FragmentDrawerLeft() {
 
 	}
 
@@ -43,29 +41,23 @@ public class FragmentDrawer extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+		View layout = inflater.inflate(R.layout.fragment_navigation_drawer_left, container, false);
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-		
-		int n = SystemConfig.oOputproduct.getCategoryVO().size();
-		String []title = new String[n];
-		for(int i=0; i< n; i++){
-			title[i]= SystemConfig.oOputproduct.getCategoryVO().get(i).getName();
-		Debug.e("ten category: "+ SystemConfig.oOputproduct.getCategoryVO().get(i).getName());
-		}
-		
-		adapter = new NavigationDrawerAdapter(getActivity(), SystemConfig.oOputproduct.getCategoryVO());
+	
+		adapter = new NavigationDrawerLeftAdapter(getActivity(), SystemConfig.oOputproduct.getCategoryVO());
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		recyclerView.addOnItemTouchListener(
 				new OnItemTouchListener(getActivity(), recyclerView, new OnItemTouchListener.ClickListener() {
 					@Override
 					public void onClick(View view, int position) {
-						drawerListener.onDrawerItemSelected(view, position);
-						mDrawerLayout.closeDrawer(containerView);
+//						drawerListener.onDrawerItemSelected(view, position);
+//						mDrawerLayout.closeDrawer(containerView);
 					}
 
 					@Override
 					public void onLongClick(View view, int position) {
+						
 
 					}
 				}));

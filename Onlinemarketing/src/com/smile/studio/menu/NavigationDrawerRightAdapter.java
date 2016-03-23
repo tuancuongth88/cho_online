@@ -4,22 +4,21 @@ import java.util.Collections;
 import java.util.List;
 
 import com.example.onlinemarketing.R;
-import com.onlinemarketing.object.CategoryVO;
+import com.onlinemarketing.object.SettingVO;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
-	List<CategoryVO> data = Collections.emptyList();
+public class NavigationDrawerRightAdapter extends RecyclerView.Adapter<NavigationDrawerRightAdapter.MyViewHolder> {
+	List<SettingVO> data = Collections.emptyList();
 	private LayoutInflater inflater;
 	private Context context;
 
-	public NavigationDrawerAdapter(Context context, List<CategoryVO> data) {
+	public NavigationDrawerRightAdapter(Context context, List<SettingVO> data) {
 		this.setContext(context);
 		inflater = LayoutInflater.from(context);
 		this.data = data;
@@ -39,7 +38,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
 	@Override
 	public void onBindViewHolder(MyViewHolder holder, int position) {
-		CategoryVO current = data.get(position);
+		SettingVO current = data.get(position);
 		holder.init(current);
 	}
 
@@ -68,7 +67,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 			title = (TextView) itemView.findViewById(R.id.title);
 		}
 
-		public void init(CategoryVO item) {
+		public void init(SettingVO item) {
 //			imageview.setImageResource(item.getImageRes());
 			title.setText(item.getName());
 		}

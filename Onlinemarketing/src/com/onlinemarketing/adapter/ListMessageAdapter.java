@@ -72,13 +72,14 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		Button btn=(Button)convertView.findViewById(R.id.btnDelete);
-		btn.setTag(position);
-		btn.setOnClickListener(new OnClickListener() {
+		ImageView btnDelet=(ImageView)convertView.findViewById(R.id.itemDeleteMessage);
+		ImageView btnBock=(ImageView)convertView.findViewById(R.id.itemBockMessage);
+		btnDelet.setTag(position);
+		btnDelet.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				switch (v.getId()) {
-				case R.id.btnDelete:
+				case R.id.itemDeleteMessage:
 					Integer index = (Integer) v.getTag();
 					  int id = index;
 					  deleteLstMessage(id);

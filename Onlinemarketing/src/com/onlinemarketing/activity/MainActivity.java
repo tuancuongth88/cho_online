@@ -1,7 +1,6 @@
 package com.onlinemarketing.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.onlinemarketing.R;
 import com.onlinemarketing.config.SystemConfig;
@@ -11,7 +10,6 @@ import com.onlinemarketing.object.OutputProduct;
 import com.onlinemarketing.object.SettingVO;
 
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
 	 */
-	List<SettingVO> listSetting = new ArrayList<SettingVO>();
+	ArrayList<SettingVO> listSetting = new ArrayList<SettingVO>();
 	public static OutputProduct oOput;
 	/**
 	 * Used to store the last screen title. For use in
@@ -48,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
 	static Output out;
 	Spinner sinpnerPriceSearch, sinpnerCategorySearch, spinnerDatetimeSearch;
 	RadioButton rdbSearchOld, rdbSearchNew;
+	private NavigationDrawerFragment mNavigationDrawerFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +55,9 @@ public class MainActivity extends ActionBarActivity {
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+		getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new FragmentCategory()).commit();
 	}
 
-	private void displayView(int position) {
 
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.container_body, FragmentCategory.newInstance(position + 1))
-				.commit();
-	}
+	
 }
