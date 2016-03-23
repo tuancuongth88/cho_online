@@ -45,7 +45,7 @@ public class ChatDialog {
 	TextView txtShowMessageChat, txtalert;
 	TableLayout tab;
 	static String messageMsg;
-	static int idProduct;
+	int idProduct;
 	static int chat_id_room;
 	static int id_send;
 	static int message_id;
@@ -73,6 +73,10 @@ public class ChatDialog {
 			new MessageAsystask().execute(status);
 		} else if (status == SystemConfig.statusDeleteMessage) {
 			status_callWS = SystemConfig.statusDeleteMessage;
+			new MessageAsystask().execute(status);
+		}
+		else if (status == SystemConfig.statusDeleteGroupMessage) {
+			status_callWS = SystemConfig.statusDeleteGroupMessage;
 			new MessageAsystask().execute(status);
 		}
 	}
@@ -278,6 +282,10 @@ public class ChatDialog {
 				oOputMsg = message.paserDeleteMsg(SystemConfig.user_id,
 						SystemConfig.session_id, SystemConfig.device_id,
 						message_id);
+			case SystemConfig.statusDeleteGroupMessage:
+				oOputMsg = message.paserDeleteGroupMsg(SystemConfig.user_id,
+						SystemConfig.session_id, SystemConfig.device_id,
+						idProduct);
 			}
 			return oOputMsg;
 		}

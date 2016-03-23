@@ -3,17 +3,19 @@ package com.onlinemarketing.util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
-
+import com.lib.BaseActivity;
+import com.lib.Debug;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.onlinemarketing.config.SystemConfig;
 
-public class CallWSAsynsHttp {
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+public class CallWSAsynsHttp extends BaseActivity{
 	ProgressDialog prgDialog;
 	private Context context;
 	private String linkWS;

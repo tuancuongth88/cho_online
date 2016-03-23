@@ -9,7 +9,11 @@ import com.loopj.android.http.RequestParams;
 import com.onlinemarketing.config.SystemConfig;
 import com.onlinemarketing.object.MessageVO;
 import com.onlinemarketing.util.CallWSAsynsHttp;
+import com.onlinemarketing.util.ChatDialog;
+import com.onlinemarketing.util.ChatDialog.MessageAsystask;
+import com.onlinemarketing.util.Message;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -28,7 +32,10 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 	int layoutId;
 	LayoutInflater inflater;
 	ViewHolder holder;
-
+	Dialog dialog;
+	TextView txtalert;
+	Button btnOk,btnCancle;
+	 int position_arr;
 	public ListMessageAdapter(Context context, int resource, List<MessageVO> objects) {
 		super(context, resource, objects);
 		this.context = context;
@@ -72,19 +79,17 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		Button btn=(Button)convertView.findViewById(R.id.btnDelete);
-		btn.setTag(position);
-		btn.setOnClickListener(new OnClickListener() {
+		ImageView btnDelet=(ImageView)convertView.findViewById(R.id.itemDeleteMessage);
+		ImageView btnBock=(ImageView)convertView.findViewById(R.id.itemBockMessage);
+		btnDelet.setTag(position);
+		btnDelet.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				switch (v.getId()) {
-				case R.id.btnDelete:
+				case R.id.itemDeleteMessage:
 					Integer index = (Integer) v.getTag();
 					  int id = index;
-					  deleteLstMessage(id);
-					  listData.remove(id);
-					  Debug.showAlert(context, id +"");
-			          notifyDataSetChanged();
+					  dialogDelete(id);
 					break;
 
 				default:
@@ -92,22 +97,48 @@ public class ListMessageAdapter extends ArrayAdapter<MessageVO>{
 				}
 				  
 			}
-		});
+		});             
 		holder.init(listData.get(position));
 		return convertView;
 	}
 	
-	public  <T> void deleteLstMessage(int position){
+	public void deletegroup(int position){
 		MessageVO objmessage = listData.get(position);
-		int id = objmessage.getId();
-		String link= SystemConfig.API;
-		link += "/"+ SystemConfig.Message+"/"+SystemConfig.sendUserChar+"/"+SystemConfig.Delete;
-		CallWSAsynsHttp obj  = new CallWSAsynsHttp(context, link, SystemConfig.httppost);
-		RequestParams params = new RequestParams();
-		params.put("chat_id", id);
-		obj.invokeWSPost(null, params);
+		int id = objmessage.getReceiver_id();
+		ChatDialog objchat = new ChatDialog(context,id);
+		objchat.run(SystemConfig.statusDeleteGroupMessage);
+		
 		
 	}
+	public void dialogDelete( int position) {
+		dialog = new Dialog(context);
+		dialog.setContentView(R.layout.dialog_delete);
+		dialog.setTitle("Thông Báo");
+		txtalert = (TextView) dialog.findViewById(R.id.txtalert);
+		txtalert.setText("Bạn muốn xóa toàn bộ cuộc trò truyên!");
+		txtalert.setTextSize(18);
+		btnOk = (Button) dialog.findViewById(R.id.btn_Ok_Delete);
+		btnCancle = (Button) dialog.findViewById(R.id.btn_Cancle_Delete);
+		position_arr = position;
+		btnOk.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				deletegroup(position_arr);
+				listData.remove(position_arr);
+				notifyDataSetChanged();
+				dialog.dismiss();
+			}
+		});
+		btnCancle.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+	
 	
 	
 }

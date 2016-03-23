@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	AlertDialog.Builder mProgressDialog;
 	LoginRegisterAsystask account;
 	// google
-	SignInButton btngoogle;
+//	SignInButton btngoogle;
 	//private PlusClient mPlusClient;
 	private int REQUEST_CODE_RESOLVE_ERR = 301;
 	private CallbackManager callback = null;
@@ -49,13 +49,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		txtpass = (EditText) findViewById(R.id.txtpassword);
 		btnlogin = (Button) findViewById(R.id.btnlogin);
 		btnRegister = (Button) findViewById(R.id.btnRegister);
-		btngoogle = (SignInButton) findViewById(R.id.googlebtn);
+//		btngoogle = (SignInButton) findViewById(R.id.googlebtn);
 		btnFace = (Button) findViewById(R.id.btnFace);
 		btn_skip = (Button) findViewById(R.id.btnSkip);
 		chkRemember = (CheckBox) findViewById(R.id.chkremember);
 		btnlogin.setOnClickListener(this);
 		btnRegister.setOnClickListener(this);  
-		btngoogle.setOnClickListener(this);
+//		btngoogle.setOnClickListener(this);
 		btnFace.setOnClickListener(this);
 		btn_skip.setOnClickListener(this);
 		

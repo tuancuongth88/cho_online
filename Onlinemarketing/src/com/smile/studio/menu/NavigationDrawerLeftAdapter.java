@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDrawerAdapter.MyViewHolder> {
+public class NavigationDrawerLeftAdapter extends RecyclerView.Adapter<NavigationDrawerLeftAdapter.MyViewHolder> {
 	List<CategoryVO> data = Collections.emptyList();
 	private LayoutInflater inflater;
 	private Context context;
 
-	public NavigationDrawerAdapter(Context context, List<CategoryVO> data) {
+	public NavigationDrawerLeftAdapter(Context context, List<CategoryVO> data) {
 		this.setContext(context);
 		inflater = LayoutInflater.from(context);
 		this.data = data;
@@ -58,18 +58,17 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
 	class MyViewHolder extends RecyclerView.ViewHolder {
 
-//		private ImageView imageview = null;
+		private ImageView imageview = null;
 		private TextView title = null;
 
 		public MyViewHolder(View itemView) {
 			super(itemView);
-//			imageview = (ImageView) itemView.findViewById(R.id.imageview);
-//			imageview.setColorFilter(context.getResources().getColor(R.color.white));
+			imageview = (ImageView) itemView.findViewById(R.id.imageview);
+			imageview.setColorFilter(context.getResources().getColor(R.color.white));
 			title = (TextView) itemView.findViewById(R.id.title);
 		}
 
 		public void init(CategoryVO item) {
-//			imageview.setImageResource(item.getImageRes());
 			title.setText(item.getName());
 		}
 	}

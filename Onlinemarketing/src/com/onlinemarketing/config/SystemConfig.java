@@ -41,6 +41,7 @@ public class SystemConfig {
 	public static final int statusSendMessage = 5;
 	public static final int statusGetHistoryMessage = 6;
 	public static final int statusDeleteMessage = 7;
+	public static final int statusDeleteGroupMessage = 8;
 	
 	public static final int statusProductSave = 1;
 	public static final int statusErrorReport = 2;

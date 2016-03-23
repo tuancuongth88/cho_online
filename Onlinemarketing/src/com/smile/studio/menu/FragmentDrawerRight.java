@@ -11,6 +11,7 @@ import com.onlinemarketing.object.OutputProduct;
 import com.onlinemarketing.object.SettingVO;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,14 +29,14 @@ public class FragmentDrawerRight extends Fragment {
 
 	ArrayList<SettingVO> listSetting = new ArrayList<SettingVO>();
 	public static OutputProduct oOput;
-	
 	private RecyclerView recyclerView = null;
 	private ActionBarDrawerToggle mDrawerToggle = null;
 	private DrawerLayout mDrawerLayout = null;
 	private NavigationDrawerRightAdapter adapter = null;
 	private View containerView = null;
 	private FragmentDrawerListener drawerListener = null;
-
+	
+	
 	public FragmentDrawerRight() {
 
 	}
@@ -52,11 +53,10 @@ public class FragmentDrawerRight extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+		View layout = inflater.inflate(R.layout.fragment_navigation_drawer_right, container, false);
+		
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 		
-//		adapter = new NavigationDrawerRightAdapter(getActivity(), SystemConfig.oOputproduct.getSettingVO());
-//		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		recyclerView.addOnItemTouchListener(
 				new OnItemTouchListener(getActivity(), recyclerView, new OnItemTouchListener.ClickListener() {
@@ -64,6 +64,9 @@ public class FragmentDrawerRight extends Fragment {
 					public void onClick(View view, int position) {
 //						drawerListener.onDrawerItemSelected(view, position);
 //						mDrawerLayout.closeDrawer(containerView);
+//						mTitle = SystemConfig.oOputproduct.getCategoryVO().get(position - 1)
+//								.getName();
+						
 					}
 
 					@Override

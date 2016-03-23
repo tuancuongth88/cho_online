@@ -157,4 +157,27 @@ public class JsonMessage {
 		}
 		return oOput;
 	}
+	
+	public OutputMessage paserDeleteGroupMsg(String user_id, String session_id, String device_id, int message_id){
+		OutputMessage oOput = new OutputMessage();
+		String str = null ;
+		try{
+			request = new StringBuilder(SystemConfig.API );
+			request.append(SystemConfig.Message+"/"+SystemConfig.sendUserChar+"/"+SystemConfig.DeleteMessage+"/"+message_id);
+			request.append("?user_id=").append(URLEncoder.encode(user_id, "UTF-8"));
+			request.append("&session_id=").append(URLEncoder.encode(session_id, "UTF-8"));
+			request.append("&device_id=").append(URLEncoder.encode(device_id, "UTF-8"));
+			request.append("&chat_id=").append(message_id);
+			Debug.e(request.toString());
+			str = Util.getjSonUrl(request.toString(), SystemConfig.httppost);
+			jsonObject = new JSONObject(str);
+			oOput.setCode(jsonObject.getInt("code"));					
+			oOput.setMessage(jsonObject.getString("message"));
+			oOput.setSession_id(jsonObject.getString("session_id"));
+			oOput.setUser_Id(jsonObject.getString("user_id"));
+		}catch (Exception e) {
+			Debug.e(e.toString());
+		}
+		return oOput;
+	}
 }

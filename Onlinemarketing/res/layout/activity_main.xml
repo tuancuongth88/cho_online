@@ -37,12 +37,12 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer_left"
-        android:name="com.smile.studio.menu.FragmentDrawer"
+        android:name="com.smile.studio.menu.FragmentDrawerLeft"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        app:layout="@layout/fragment_navigation_drawer_left"
+        tools:layout="@layout/fragment_navigation_drawer_left" />
 
     <fragment
         android:id="@+id/fragment_navigation_drawer_right"
@@ -50,7 +50,7 @@
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        app:layout="@layout/fragment_navigation_drawer_left"
+        tools:layout="@layout/fragment_navigation_drawer_left" />
 
 </android.support.v4.widget.DrawerLayout>

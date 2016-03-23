@@ -3,13 +3,15 @@ package com.smile.studio.menu;
 import com.example.onlinemarketing.R;
 import com.lib.Debug;
 import com.lib.recycler.OnItemTouchListener;
-import com.onlinemarketing.activity.GlobalApp;
 import com.onlinemarketing.config.SystemConfig;
+import com.onlinemarketing.fragment.FragmentCategory;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,16 +21,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentDrawer extends Fragment {
+public class FragmentDrawerLeft extends Fragment {
 
 	private RecyclerView recyclerView = null;
 	private ActionBarDrawerToggle mDrawerToggle = null;
 	private DrawerLayout mDrawerLayout = null;
-	private NavigationDrawerAdapter adapter = null;
+	private NavigationDrawerLeftAdapter adapter = null;
 	private View containerView = null;
 	private FragmentDrawerListener drawerListener = null;
 
-	public FragmentDrawer() {
+	public static int id_category;
+	public static int status = SystemConfig.statusHomeProduct;
+	Context context;
+	public FragmentDrawerLeft() {
 
 	}
 
@@ -43,10 +48,11 @@ public class FragmentDrawer extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+		View layout = inflater.inflate(R.layout.fragment_navigation_drawer_left, container, false);
+		context = layout.getContext();
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 	
-		adapter = new NavigationDrawerAdapter(getActivity(), SystemConfig.oOputproduct.getCategoryVO());
+		adapter = new NavigationDrawerLeftAdapter(getActivity(), SystemConfig.oOputproduct.getCategoryVO());
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		recyclerView.addOnItemTouchListener(
@@ -55,6 +61,10 @@ public class FragmentDrawer extends Fragment {
 					public void onClick(View view, int position) {
 //						drawerListener.onDrawerItemSelected(view, position);
 //						mDrawerLayout.closeDrawer(containerView);
+						id_category = SystemConfig.oOputproduct.getCategoryVO().get(position - 1)
+								.getId();
+						status = SystemConfig.statusCategoryProduct;
+						
 					}
 
 					@Override
@@ -103,5 +113,6 @@ public class FragmentDrawer extends Fragment {
 
 	public interface FragmentDrawerListener {
 		public void onDrawerItemSelected(View view, int position);
+		
 	}
 }

@@ -22,7 +22,9 @@ import com.onlinemarketing.object.ProductVO;
 import com.onlinemarketing.object.ProfileVO;
 import com.onlinemarketing.util.ChatDialog;
 import com.smile.android.gsm.utils.AndroidUtils;
+import com.smile.studio.menu.FragmentDrawerLeft;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -76,12 +78,13 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		fragment.setArguments(args);
 		return fragment;
 	}
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,7 +104,7 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		btnChat.setOnClickListener(this);
 		btnFavorite.setOnClickListener(this);
 		btnProfile.setOnClickListener(this);
-		new HomeAsystask().execute(MainActivity.status);
+		new HomeAsystask().execute(FragmentDrawerLeft.status);
 		return rootView;
 	}
 
