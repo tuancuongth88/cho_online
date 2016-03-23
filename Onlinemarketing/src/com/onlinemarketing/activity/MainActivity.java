@@ -8,10 +8,12 @@ import com.onlinemarketing.fragment.FragmentCategory;
 import com.onlinemarketing.object.Output;
 import com.onlinemarketing.object.OutputProduct;
 import com.onlinemarketing.object.SettingVO;
+import com.smile.studio.menu.FragmentDrawerLeft;
 import com.smile.studio.menu.FragmentDrawerLeft.FragmentDrawerListener;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -23,7 +25,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity implements FragmentDrawerListener{
+public class MainActivity extends ActionBarActivity implements FragmentDrawerListener {
 
 	private Toolbar mToolbar;
 
@@ -32,6 +34,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawerLis
 	 * navigation drawer.
 	 */
 	ArrayList<SettingVO> listSetting = new ArrayList<SettingVO>();
+
+	private FragmentDrawerLeft drawerFragment;
 	public static OutputProduct oOput;
 	/**
 	 * Used to store the last screen title. For use in
@@ -46,17 +50,18 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawerLis
 		setContentView(R.layout.activity_main);
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
-		getSupportActionBar().setDisplayShowHomeEnabled(true);		
-		getSupportActionBar().setShowHideAnimationEnabled(true);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		drawerFragment = (FragmentDrawerLeft) getSupportFragmentManager()
+				.findFragmentById(R.id.fragment_navigation_drawer_left);
+		drawerFragment.setUp(R.id.fragment_navigation_drawer_left, (DrawerLayout) findViewById(R.id.drawer_layout),
+				mToolbar);
+		drawerFragment.setDrawerListener(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container_body, new FragmentCategory()).commit();
 	}
 
 	@Override
 	public void onDrawerItemSelected(View view, int position) {
-		
+
 	}
-	 
 
-
-	
 }

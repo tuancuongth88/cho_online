@@ -11,7 +11,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +32,7 @@ public class FragmentDrawerLeft extends Fragment {
 	public static int id_category;
 	public static int status = SystemConfig.statusHomeProduct;
 	Context context;
+
 	public FragmentDrawerLeft() {
 
 	}
@@ -51,7 +51,7 @@ public class FragmentDrawerLeft extends Fragment {
 		View layout = inflater.inflate(R.layout.fragment_navigation_drawer_left, container, false);
 		context = layout.getContext();
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-	
+
 		adapter = new NavigationDrawerLeftAdapter(getActivity(), SystemConfig.oOputproduct.getCategoryVO());
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,17 +59,15 @@ public class FragmentDrawerLeft extends Fragment {
 				new OnItemTouchListener(getActivity(), recyclerView, new OnItemTouchListener.ClickListener() {
 					@Override
 					public void onClick(View view, int position) {
-//						drawerListener.onDrawerItemSelected(view, position);
-//						mDrawerLayout.closeDrawer(containerView);
-						id_category = SystemConfig.oOputproduct.getCategoryVO().get(position - 1)
-								.getId();
+						// drawerListener.onDrawerItemSelected(view, position);
+						// mDrawerLayout.closeDrawer(containerView);
+						id_category = SystemConfig.oOputproduct.getCategoryVO().get(position - 1).getId();
 						status = SystemConfig.statusCategoryProduct;
-						
+
 					}
 
 					@Override
 					public void onLongClick(View view, int position) {
-						
 
 					}
 				}));
@@ -113,6 +111,6 @@ public class FragmentDrawerLeft extends Fragment {
 
 	public interface FragmentDrawerListener {
 		public void onDrawerItemSelected(View view, int position);
-		
+
 	}
 }

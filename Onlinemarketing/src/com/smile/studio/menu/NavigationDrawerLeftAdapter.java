@@ -32,7 +32,7 @@ public class NavigationDrawerLeftAdapter extends RecyclerView.Adapter<Navigation
 
 	@Override
 	public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = inflater.inflate(R.layout.custom_item_navigator, parent, false);
+		View view = inflater.inflate(R.layout.custom_item_navigator_left, parent, false);
 		MyViewHolder holder = new MyViewHolder(view);
 		return holder;
 	}
