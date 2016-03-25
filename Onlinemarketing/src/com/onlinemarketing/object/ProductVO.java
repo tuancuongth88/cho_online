@@ -25,7 +25,7 @@ public class ProductVO {
 	private String delete_at;
 	private String create_at;
 	private String lat, log;
-	private String time_id;
+	private String time_id, phone;
 	private boolean isCheck;
 	private List<String> arrImageDetail;
 	
@@ -179,6 +179,14 @@ public class ProductVO {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public int getPosition() {

@@ -59,16 +59,13 @@ public class ListSaveSearchAdapter extends BaseAdapter {
 
 	public class ViewHolder {
 		TextView txtname;
-		public CheckBox check;
 
 		public void setData(ProductVO productVO) {
 			txtname.setText(productVO.getName());
-			check.setChecked(productVO.isCheck());
 		}
 
 		public ViewHolder(View view) {
 			txtname = (TextView) view.findViewById(R.id.txtNameListSearch);
-			check = (CheckBox) view.findViewById(R.id.imgDeleteListSearch);
 		}
 
 		public ViewHolder() {
@@ -92,20 +89,7 @@ public class ListSaveSearchAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if (type == 0) {
-			holder.check.setVisibility(View.GONE);
-		} else if (type == 1) {
-			holder.check.setVisibility(View.VISIBLE);
-		}
 		holder.setData(list.get(position));
-		holder.check.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				callback.callbackDeletePosition(position);
-			}
-		});
 		return convertView;
 	}
 

@@ -23,10 +23,11 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class BackListActivity extends BaseActivity implements OnItemClickListener {
+public class BackListActivity extends BaseActivity implements OnItemClickListener, OnClickListener {
 
 	List<BackListVO> list = new ArrayList<BackListVO>();
 	ProgressDialog progressDialog;
@@ -41,11 +42,15 @@ public class BackListActivity extends BaseActivity implements OnItemClickListene
 	Button btnOk, btnCancle;
 	private int id_delete , positon;
 
+	ImageView imgBack;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_back_list);
 		listview = (ListView) findViewById(R.id.listBackList);
+		imgBack = (ImageView) findViewById(R.id.imgBackTitle);
+		imgBack.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
 		if (isConnect()) {
 			new BackListAsystask().execute();
@@ -146,6 +151,11 @@ public class BackListActivity extends BaseActivity implements OnItemClickListene
 			}
 			super.onPostExecute(result);
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		this.finish();
 	}
 
 

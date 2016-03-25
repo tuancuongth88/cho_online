@@ -8,6 +8,7 @@ public class SystemConfig {
 //  tên các method 
 	public static final String Login = "login?";
 	public static final String Register = "register?";
+	public static final String LoginSocial = "login_social?";
 	public static final String Category = "category";
 	public static final String Setting = "setting";
 	public static final String Profile = "profile";
@@ -23,6 +24,8 @@ public class SystemConfig {
 	public static final String SearchLog ="search_log";
 	public static final String Product_log = "product_log";
 	public static final String Upload_image = "upload_image";
+	public static final String TextSetting = "text";
+	public static final String  Action = "action";
 	//chat dialog
 	public static final String Message = "message";
 	public static final String SendMessage = "send";
@@ -30,9 +33,12 @@ public class SystemConfig {
 	public static final String sendUserChar = "user";
 	public static final String DeleteMessage = "delete";
 	public static final String BlockMessage = "block";
-	
+	//asystark
 	public static final int statusLogin = 1;
 	public static final int statusRegister = 2;
+	public static final int statusfacebook = 3;
+	public static final int statusgoogle = 4;
+	public static final int statuslogout = 5;
 	// status json paser
 	public static final int statusHomeProduct = 1;
 	public static final int statusCategoryProduct = 2;
@@ -45,8 +51,11 @@ public class SystemConfig {
 	public static final int statusDeleteGroupMessage = 8;
 	public static final int statusBlockUser = 9;
 	
+	//product detail
 	public static final int statusProductSave = 1;
 	public static final int statusErrorReport = 2;
+	public static final int statusProductDetail = 3;
+	
 	public static final int statusProfile = 1;
 	public static final int statusFavorite = 2;
 	public static final int statusDeleteBackList = 1;

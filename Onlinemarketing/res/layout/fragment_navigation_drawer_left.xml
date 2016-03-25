@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="horizontal" >
 
         <TextView
@@ -15,17 +16,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="DANH MỤC"
-            android:textSize="20sp" />
+            android:textColor="#383A47"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="YÊU THÍCH"
             android:gravity="right"
-            android:textSize="20sp" />
+            android:text="YÊU THÍCH"
+            android:textColor="#B75051"
+            android:textSize="18sp" />
     </LinearLayout>
 
+    <View 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#C2C2C2"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"

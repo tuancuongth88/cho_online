@@ -5,12 +5,10 @@
     android:orientation="vertical"
     tools:context="com.onlinemarketing.activity.ListSaveSearchActivity" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+    <include
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="Button" />
+        layout="@layout/layout_title" />
 
     <ListView
         android:id="@+id/listSaveSearch"

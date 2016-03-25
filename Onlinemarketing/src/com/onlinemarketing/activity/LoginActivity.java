@@ -5,6 +5,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.common.SignInButton;
 import com.lib.Debug;
@@ -15,6 +16,7 @@ import com.onlinemarketing.config.SystemConfig;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -35,7 +37,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	LoginRegisterAsystask account;
 	// google
 //	SignInButton btngoogle;
-	//private PlusClient mPlusClient;
+//	private PlusClient mPlusClient;
 	private int REQUEST_CODE_RESOLVE_ERR = 301;
 	private CallbackManager callback = null;
 
@@ -150,13 +152,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 						@Override
 						public void onSuccess(LoginResult result) {
-							// Profile profile = Profile.getCurrentProfile();
-							Intent intent = new Intent(LoginActivity.this,
-									MainActivity.class);
-							// intent.putExtra(Account.ID, profile.getId());
-							// Debug.e("UID: " + profile.getId().toString());
-							startActivity(intent);
-							finish();
+							 Profile profile = Profile.getCurrentProfile();
+//							 intent.putExtra(Account.ID, profile.getId());
+							 String facebook_id = profile.getId().toString();
+							 String name =  profile.getName().toString();
+							 Debug.e("name: "+ name);
+							 if (isConnect()) {
+									
+								 loginFacebook_google(facebook_id, "", name);
+									
+								}
+							
 						}
 
 						@Override
@@ -174,7 +180,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-
+	public  void loginFacebook_google(String facebook_id, String google_id, String user_name) {
+		new LoginRegisterAsystask(
+				SystemConfig.device_id, "", "",facebook_id,"",user_name, LoginActivity.this)
+				.execute(SystemConfig.statusfacebook);
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

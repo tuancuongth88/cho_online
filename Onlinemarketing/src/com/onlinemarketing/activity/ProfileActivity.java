@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.example.onlinemarketing.R;
@@ -38,8 +39,9 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 	ProfileVO profile = new ProfileVO();
 	Output out;
 	ImageView imgAvatar;
-	EditText editName, editPhone, editMail, editAdd, editPass, editConfigPass;
-	Button btnApprovePhone, btnSave, btnBacklist;
+	EditText editName, editPhone,  editAdd, editPass, editConfigPass;
+	Button  btnSave, btnBacklist;
+	TextView btnApprovePhone,editMail;
 	Uri selectedUriImage;
 	String picturePath;
 	Bitmap selectedBitmap;
@@ -52,12 +54,12 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		imgAvatar = (ImageView) findViewById(R.id.imgAvatar_profile);
 		editName = (EditText) findViewById(R.id.editName_profile);
-		editMail = (EditText) findViewById(R.id.editEmail_profile);
+		editMail = (TextView) findViewById(R.id.editEmail_profile);
 		editAdd = (EditText) findViewById(R.id.editAddress_profile);
 		editPass = (EditText) findViewById(R.id.editPass_profile);
 		editConfigPass = (EditText) findViewById(R.id.editConfigPass_profile);
 		editPhone = (EditText) findViewById(R.id.editPhone_profile);
-		btnApprovePhone = (Button) findViewById(R.id.btnApprovePhone_profile);
+		btnApprovePhone = (TextView) findViewById(R.id.btnApprovePhone_profile);
 		btnSave = (Button) findViewById(R.id.btnSave_profile);
 //		imgAvatar = (ImageView) findViewById(R.id.imgAvatar_profile);
 		btnBacklist = (Button) findViewById(R.id.btnBackList);

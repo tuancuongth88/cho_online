@@ -10,7 +10,7 @@
     android:paddingTop="5dp" >
 
     <ImageView
-        android:id="@+id/imageview"
+        android:id="@+id/imgReghtNavigator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4"

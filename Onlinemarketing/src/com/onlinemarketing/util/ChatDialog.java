@@ -48,7 +48,7 @@ public class ChatDialog {
 	TableLayout tab;
 	static String messageMsg;
 	int idProduct;
-	static int chat_id_room;
+	static int chat_id_room, abc;
 	static int id_send;
 	static int message_id;
 	int status_callWS = 0;
@@ -101,6 +101,7 @@ public class ChatDialog {
 					int position, long id) {
 				// idProduct = listMessage.get(position).getReceiver_id();
 				chat_id_room = listMessage.get(position).getReceiver_id();
+				abc = chat_id_room;
 				ChatDialog chat = new ChatDialog(context);
 				chat.run(SystemConfig.statusGetHistoryMessage);
 				dialogChat(idProduct);
@@ -110,7 +111,7 @@ public class ChatDialog {
 		dialogListMsg.show();
 	}
 
-	public Dialog dialogChat(int iduser) {
+	public Dialog dialogChat(final int iduser) {
 		dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.dialog_chat);
@@ -123,7 +124,7 @@ public class ChatDialog {
 		dialog.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				com.lib.Debug.showAlert(context, "Chet chu con");
+				//bat su kien thoat
 			}
 		});
 		btnListChat.setOnClickListener(new OnClickListener() {
@@ -141,6 +142,11 @@ public class ChatDialog {
 			@Override
 			public void onClick(View v) {
 				messageMsg = editSendMessage.getText().toString();
+				if(iduser > 0){
+					chat_id_room = iduser;
+				}else{
+					chat_id_room = abc;
+				}
 				run(SystemConfig.statusSendMessage);
 //				setStyleSendMessage(editSendMessage.getText().toString(), 0);
 				

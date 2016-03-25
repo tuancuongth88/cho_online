@@ -28,6 +28,9 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		Debug.e(AndroidUtils.getHashKey(this));
+		runCategoryAsystask();
+	}
+	public void runCategoryAsystask(){
 		if (isConnect()) {
 			new CategoryAsystask().execute();
 		}
@@ -45,6 +48,26 @@ public class SplashActivity extends BaseActivity {
 		protected void onPreExecute() {
 			product = new JsonCategory();
 			profile = new JsonProfile();
+			
+			
+
+			if (SharedPreferencesUtils.getBoolean(
+					SplashActivity.this, SystemConfig.CHECKLOGIN)) {
+				SystemConfig.user_id = String
+						.valueOf(SharedPreferencesUtils.getString(
+								SplashActivity.this,
+								SystemConfig.USER_ID));
+				SystemConfig.session_id = SharedPreferencesUtils
+						.getString(SplashActivity.this,
+								SystemConfig.SESSION_ID);
+				oOput = profile.paserProfile(SystemConfig.user_id,
+						SystemConfig.session_id,
+						SystemConfig.device_id,
+						SystemConfig.statusProfile);
+				SystemConfig.oOputproduct.setProfileDetailVO(oOput.getProfileVO());
+				SystemConfig.oOputproduct.setProfileVO(oOput.getProfileVO());
+				
+		}
 			super.onPreExecute();
 		}
 
@@ -52,24 +75,8 @@ public class SplashActivity extends BaseActivity {
 		protected OutputProduct doInBackground(String... params) {
 			try {
 				if (isConnect()) {
-					oOput = product.paserCategory();
+					oOput = product.paserCategory(SystemConfig.user_id, SystemConfig.session_id, SystemConfig.device_id);
 					SystemConfig.oOputproduct.setCategoryVO(oOput.getCategoryVO());
-						if (SharedPreferencesUtils.getBoolean(
-								SplashActivity.this, SystemConfig.CHECKLOGIN)) {
-							SystemConfig.user_id = String
-									.valueOf(SharedPreferencesUtils.getString(
-											SplashActivity.this,
-											SystemConfig.USER_ID));
-							SystemConfig.session_id = SharedPreferencesUtils
-									.getString(SplashActivity.this,
-											SystemConfig.SESSION_ID);
-							oOput = profile.paserProfile(SystemConfig.user_id,
-									SystemConfig.session_id,
-									SystemConfig.device_id,
-									SystemConfig.statusProfile);
-							SystemConfig.oOputproduct.setProfileVO(oOput.getProfileVO());
-							
-					}
 				}
 			} catch (Exception e) {
 				Debug.e(e.toString());

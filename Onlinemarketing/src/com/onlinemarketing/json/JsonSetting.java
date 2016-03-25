@@ -40,9 +40,11 @@ public class JsonSetting {
 						for (int i = 0; i < jsonProduct.length(); i++) {
 							JSONObject objjson_product = jsonProduct.getJSONObject(i);
 							SettingVO objSetting = new SettingVO();
+							objSetting.setId(objjson_product.getInt("id"));
 							objSetting.setName(objjson_product.getString("name"));
 							objSetting.setLink(objjson_product.getString("link").toString());
 							objSetting.setMethod(objjson_product.get("method").toString());
+							objSetting.setAvatar(objjson_product.get("image_url").toString());
 							objSetting.setQuantily(objjson_product.get("quantity").toString());
 							arrSetting.add(objSetting);
 						}

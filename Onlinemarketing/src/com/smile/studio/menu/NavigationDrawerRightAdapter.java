@@ -3,14 +3,18 @@ package com.smile.studio.menu;
 import java.util.Collections;
 import java.util.List;
 
+import com.androidquery.AQuery;
 import com.example.onlinemarketing.R;
+import com.lib.Debug;
 import com.onlinemarketing.object.SettingVO;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NavigationDrawerRightAdapter extends RecyclerView.Adapter<NavigationDrawerRightAdapter.MyViewHolder> {
@@ -57,18 +61,25 @@ public class NavigationDrawerRightAdapter extends RecyclerView.Adapter<Navigatio
 
 	class MyViewHolder extends RecyclerView.ViewHolder {
 
-//		private ImageView imageview = null;
+		private ImageView imageview = null;
 		private TextView title = null;
+		private AQuery aQuery = null;
 
 		public MyViewHolder(View itemView) {
 			super(itemView);
-//			imageview = (ImageView) itemView.findViewById(R.id.imageview);
-//			imageview.setColorFilter(context.getResources().getColor(R.color.white));
+			imageview = (ImageView) itemView.findViewById(R.id.imgReghtNavigator);
 			title = (TextView) itemView.findViewById(R.id.title);
+			aQuery = new AQuery(itemView);
 		}
 
 		public void init(SettingVO item) {
-//			imageview.setImageResource(item.getImageRes());
+			Debug.e("avata aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: "+ item.getAvatar());
+			Bitmap bitmap = aQuery.getCachedImage(item.getAvatar());
+			if (bitmap != null) {
+				aQuery.id(imageview).image(bitmap);
+			} else {
+				aQuery.id(imageview).image(item.getAvatar(), true, true, 0, R.drawable.ic_launcher);
+			}
 			title.setText(item.getName());
 		}
 	}

@@ -23,6 +23,7 @@ import com.onlinemarketing.object.ProfileVO;
 import com.onlinemarketing.util.ChatDialog;
 import com.smile.android.gsm.utils.AndroidUtils;
 import com.smile.studio.menu.FragmentDrawerLeft;
+import com.smile.studio.menu.FragmentDrawerRight;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -104,8 +105,15 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		btnChat.setOnClickListener(this);
 		btnFavorite.setOnClickListener(this);
 		btnProfile.setOnClickListener(this);
-		new HomeAsystask().execute(FragmentDrawerLeft.status);
+		new HomeAsystask().execute(MainActivity.status);
 		return rootView;
+	}
+	public void callAsystask(int status, Context contectcall){
+		if(status == SystemConfig.statusListSaveProduct){
+			context = contectcall;
+			this.status = status;
+			new HomeAsystask().execute(status);
+		}
 	}
 
 	public class HomeAsystask extends
@@ -120,6 +128,7 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		@Override
 		protected void onPreExecute() {
 			product = new JsonProduct();
+			
 			progressDialog = new ProgressDialog(context);
 			// Set progressdialog message
 			progressDialog.setMessage("Loading...");
@@ -160,19 +169,21 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 
 		@Override
 		protected void onPostExecute(OutputProduct result) {
-			adapter = new HomePageAdapter(context, R.layout.item_trang_chu,
-					list);
-			listview.setAdapter(adapter);
-			progressDialog.dismiss();
 			if (result.getCode() == Constan.getIntProperty("success")
 					&& status == SystemConfig.statusListSaveProduct) {
 				startActivity(new Intent(context, SaveNewsListActivity.class));
+			}else {
+			adapter = new HomePageAdapter(context, R.layout.item_trang_chu,
+					list);
+			listview.setAdapter(adapter);
 			}
+			progressDialog.dismiss();
 		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		ProductDetailActivity.id_product = list.get(arg2).getId();
 		startActivity(new Intent(context, ProductDetailActivity.class));
 
 	}

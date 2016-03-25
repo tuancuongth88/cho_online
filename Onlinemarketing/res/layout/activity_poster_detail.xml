@@ -5,41 +5,48 @@
     android:orientation="vertical"
     tools:context="com.onlinemarketing.activity.PosterDetailActivity" >
 
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="4.5"
+        layout="@layout/layout_title" />
+
     <ListView
         android:id="@+id/listPoster"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
         android:layout_below="@+id/linearPoster"
-         />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/linearPoster"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="9"
+        android:layout_weight="4.65"
+        android:background="#373945"
+        android:gravity="center"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageView
             android:id="@+id/btnChatDirectly_Detail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Chát " />
+            android:src="@drawable/icon_chat_product" />
 
-        <Button
+        <ImageView
             android:id="@+id/btnCall_Detail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Gọi Điện" />
+            android:src="@drawable/icon_call" />
 
-        <Button
+        <ImageView
             android:id="@+id/btnSendSMS_Detail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="gửi sms" />
+            android:src="@drawable/icon_sms" />
     </LinearLayout>
 
 </LinearLayout>

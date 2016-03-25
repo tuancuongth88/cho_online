@@ -21,7 +21,10 @@ public class LoginRegisterAsystask extends
 	JsonAccount json;
 	LoginRegister account;
 	boolean chkRemember;
-
+	String facebook_id;
+	String google_id;
+	String user_name;
+	int status_login;
 	public LoginRegisterAsystask(String email, String pass, String device_id,
 			String user_id, String session_id, boolean chkremember, Context context) {
 		super();
@@ -33,7 +36,18 @@ public class LoginRegisterAsystask extends
 		this.chkRemember = chkremember;
 		this.context =  (Activity) context;
 	}
-
+	
+	public LoginRegisterAsystask( String device_id,
+			String user_id, String session_id, String facebook_id,String google_id, String userName, Context context) {
+		super();
+		SystemConfig.device_id = device_id;
+		SystemConfig.user_id = user_id;
+		SystemConfig.session_id = session_id;
+		this.facebook_id = facebook_id;
+		this.google_id = google_id;
+		this.user_name = userName;
+		this.context =  (Activity) context;
+	}
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
@@ -44,7 +58,8 @@ public class LoginRegisterAsystask extends
 
 	@Override
 	protected LoginRegister doInBackground(Integer... params) {
-		switch (params[0]) {
+		status_login = params[0];
+		switch (status_login) {
 		case SystemConfig.statusLogin:
 			account = json.paserRegister(SystemConfig.Email, SystemConfig.Pass,
 					SystemConfig.device_id, SystemConfig.user_id,
@@ -55,6 +70,10 @@ public class LoginRegisterAsystask extends
 					SystemConfig.device_id, SystemConfig.user_id,
 					SystemConfig.session_id, SystemConfig.statusRegister);
 			break;
+		case SystemConfig.statusfacebook:
+			account = json.paserLoginFacebook(
+					SystemConfig.device_id, SystemConfig.user_id,
+					SystemConfig.session_id, facebook_id,google_id,user_name);
 		}
 		return account;
 
@@ -70,12 +89,14 @@ public class LoginRegisterAsystask extends
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        context.startActivity(intent);
 	        ((Activity)context).finish();
+	        if(status_login == SystemConfig.statusLogin){
 	        SharedPreferencesUtils.putString(context, SystemConfig.USER_ID, String.valueOf(result.getUser_Id()));
 	        SharedPreferencesUtils.putString(context, SystemConfig.SESSION_ID, String.valueOf(result.getSession_id()));
-	        SystemConfig.user_id = String.valueOf(result.getUser_Id());
-	        SystemConfig.session_id = result.getSession_id();
 	        SharedPreferencesUtils.putBoolean(context, SystemConfig.CHECKLOGIN, chkRemember);
 	        Debug.e("Check login :  " + chkRemember);
+	        }
+	        SystemConfig.user_id = String.valueOf(result.getUser_Id());
+	        SystemConfig.session_id = result.getSession_id();
 	        
 		} else {
 			Message.showMessage(result.getMessage());

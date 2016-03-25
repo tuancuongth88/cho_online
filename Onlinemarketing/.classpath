@@ -6,5 +6,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="E:/AndroidIDE/sdk/platforms/android-16/android.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-async-http-1.4.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.3.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/httpcore-4.3.3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
