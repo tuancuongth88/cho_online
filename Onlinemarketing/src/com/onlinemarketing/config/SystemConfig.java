@@ -26,6 +26,7 @@ public class SystemConfig {
 	public static final String Upload_image = "upload_image";
 	public static final String TextSetting = "text";
 	public static final String  Action = "action";
+	public static final String  Post_product = "post_product";
 	//chat dialog
 	public static final String Message = "message";
 	public static final String SendMessage = "send";

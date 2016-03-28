@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -48,7 +49,7 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 	Bitmap selectedBitmap;
 	private Uri fileUri;
 	private AQuery aQuery;
-
+	ProgressDialog prgDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_profile);
@@ -73,11 +74,11 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void setData(ArrayList<ProfileVO> proVo) {
-
 		ProfileVO obj = proVo.get(0);
-		// imgAvatar.setImageResource(Integer.parseInt(proVo.get)));
-		// Drawable drawable = LoadImageFromWebOperations(obj.getAvatar());
-		// imgAvatar.setImageDrawable(drawable);
+		prgDialog = new ProgressDialog(this);
+		prgDialog.setMessage("Please wait...");
+		prgDialog.setCancelable(false);
+
 		Bitmap bitmap = aQuery.getCachedImage(obj.getAvatar());
 		if (bitmap != null) {
 			bitmap = Util.getCroppedBitmap(bitmap);
@@ -203,6 +204,7 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		@Override
 		protected void onPreExecute() {
 			jsonProfile = new JsonProfile();
+			 prgDialog.show();
 			super.onPreExecute();
 		}
 
@@ -220,6 +222,7 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Output result) {
+			prgDialog.dismiss();
 			if (result.getCode() == Constan.getIntProperty("success")) {
 				Debug.showAlert(ProfileActivity.this, result.getMessage());
 				imgAvatar.setImageBitmap(selectedBitmap);

@@ -32,15 +32,16 @@ public class CallWSAsynsHttp extends BaseActivity{
         prgDialog.setCancelable(false);
 	}
 
-	public <T> T[] params(T[] list, RequestParams params) {
+	public String params( RequestParams params) {
 		if(status == SystemConfig.httpget)
-			list = invokeWSGet(null,params);
+			jsonResponse = invokeWSGet(params);
 		if(status == SystemConfig.httppost)
-			list = invokeWSPost(null,params);
-        return list;
+			jsonResponse = invokeWSPost(params);
+        return jsonResponse;
 	}
 
-	 public <T> T[] invokeWSGet(T[] list,RequestParams params){
+	String jsonResponse ;
+	 public String invokeWSGet(RequestParams params){
 		// TODO Auto-generated method stub
 		// Show Progress Dialog
 		 prgDialog.show();
@@ -51,12 +52,14 @@ public class CallWSAsynsHttp extends BaseActivity{
                  // Hide Progress Dialog
         		 prgDialog.hide();
                  try {
+                	 
                          // JSON Object
                          JSONObject obj = new JSONObject(response);
                          Log.e("String tra ve: ", response);
                          // When the JSON response has status boolean value assigned with true
-                         if(obj.getBoolean("status")){
-                             Toast.makeText(context.getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
+                         if(obj.getInt("code")== 200){
+                        	 jsonResponse = response;
+                        	 Debug.e(jsonResponse);
                          }
                          else{
                              Toast.makeText(context.getApplicationContext(), obj.getString("error_msg"), Toast.LENGTH_LONG).show();
@@ -86,10 +89,10 @@ public class CallWSAsynsHttp extends BaseActivity{
                  }
              }
          });
-         return list;
+         return jsonResponse;
 	}
 	 
-	 public <T> T[] invokeWSPost(T[] list,RequestParams params){
+	 public String invokeWSPost(RequestParams params){
 			// TODO Auto-generated method stub
 			// Show Progress Dialog
 		 	prgDialog.show();
@@ -101,12 +104,13 @@ public class CallWSAsynsHttp extends BaseActivity{
 	                 // Hide Progress Dialog
 	        		 prgDialog.hide();
 	                 try {
+	                	
 	                         // JSON Object
 	                         JSONObject obj = new JSONObject(response);
 	                         Log.e("String tra ve: ", response);
 	                         // When the JSON response has status boolean value assigned with true
 	                         if(obj.getBoolean("status")){
-	                             Toast.makeText(context.getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
+	                        	 jsonResponse = response;
 	                         }
 	                         else{
 	                             Toast.makeText(context.getApplicationContext(), obj.getString("error_msg"), Toast.LENGTH_LONG).show();
@@ -136,6 +140,6 @@ public class CallWSAsynsHttp extends BaseActivity{
 	                 }
 	             }
 	         });
-	         return list;
+	         return jsonResponse;
 		}
 }

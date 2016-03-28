@@ -6,6 +6,7 @@ import com.example.onlinemarketing.R;
 import com.onlinemarketing.activity.FavoriteActivity;
 import com.onlinemarketing.activity.LoginActivity;
 import com.onlinemarketing.activity.MainActivity;
+import com.onlinemarketing.activity.PostActivity;
 import com.onlinemarketing.activity.ProductDetailActivity;
 import com.onlinemarketing.activity.ProfileActivity;
 import com.onlinemarketing.activity.SaveNewsListActivity;
@@ -41,6 +42,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -68,7 +70,7 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 	TableLayout tab;
 	public static OutputMessage oOputMsg;
 	ArrayList<MessageVO> listMessage = new ArrayList<MessageVO>();
-
+	ImageView imgPost;
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
@@ -100,6 +102,8 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		btnProfile = (Button) rootView
 				.findViewById(R.id.btnProfile_FragmentCategory);
 		listview = (ListView) rootView.findViewById(R.id.listHomePage);
+		imgPost = (ImageView) rootView.findViewById(R.id.imgPostHomepage);
+		imgPost.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
 		btnHome.setOnClickListener(this);
 		btnChat.setOnClickListener(this);
@@ -214,7 +218,11 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 			new getProfileAndFavoriteAsystask()
 					.execute(SystemConfig.statusProfile);
 			break;
+		case R.id.imgPostHomepage:
+			startActivity(new Intent(context, PostActivity.class));
+			break;
 		}
+		
 	}	
 
 	public class getProfileAndFavoriteAsystask extends

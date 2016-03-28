@@ -301,6 +301,7 @@ public class Util {
 					objbuffer.append(line);
 				}
 			} else {
+				Debug.e(link);
 				Debug.e("Fiale to jdklfajlkd");
 			}
 		} catch (Exception e) {

@@ -21,6 +21,7 @@ import com.onlinemarketing.util.Util;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -49,6 +50,7 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 	public static OutputProduct out;
 	public static int id_product;
 	public static ProductVO objproductDetail;
+	ProgressDialog progressDialog;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -189,6 +191,12 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 		protected void onPreExecute() {
 			jsonProduct = new JsonProduct();
 			aQuery = new AQuery(ProductDetailActivity.this);
+			progressDialog = new ProgressDialog(ProductDetailActivity.this);
+			// Set progressdialog message
+			progressDialog.setMessage("Loading...");
+			progressDialog.setIndeterminate(false);
+			// Show progressdialog
+			progressDialog.show();
 			super.onPreExecute();
 		}
 
@@ -220,8 +228,8 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 
 		@Override
 		protected void onPostExecute(OutputProduct result) {
+			progressDialog.dismiss();
 			if (result.getCode() == Constan.getIntProperty("success")) {
-					Debug.showAlert(ProductDetailActivity.this, result.getMessage());
 					if(status == SystemConfig.statusProductDetail){
 					objproductDetail = result.getProductVO().get(0);
 					Debug.e("chi tiet sp:"+ objproductDetail.getName());
@@ -253,8 +261,10 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 						btnSendSMS_Detail.setClickable(true);
 						btnChatDirectly_Detail.setClickable(true);
 					}
-					if(objproductDetail.isProduct_saved())
+					if(objproductDetail.isProduct_saved()){
+						btnProducSave.setImageResource(R.drawable.icon_user);
 						btnProducSave.setClickable(false);
+					}
 					else 
 						btnProducSave.setClickable(true);
 					

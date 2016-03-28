@@ -17,11 +17,8 @@
     <string name="title_activity_favorite">FavoriteActivity</string>
     <string name="title_activity_save_news_list">SaveNewsListActivity</string>
     <string name="title_activity_list_save_search">ListSaveSearchActivity</string>
-<<<<<<< HEAD
     <string name="title_activity_promotion">PromotionActivity</string>
-=======
     <string name="title_activity_post">PostActivity</string>
->>>>>>> d68d798beb44bfdab612723c2901f466d280138e
     <string name="hello_world">Hello world!</string>
 
 </resources>

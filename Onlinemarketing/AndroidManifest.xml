@@ -109,6 +109,10 @@
             android:name="com.onlinemarketing.activity.PromotionActivity"
             android:label="@string/title_activity_promotion" >
         </activity>
+        <activity
+            android:name="com.onlinemarketing.activity.PostActivity"
+            android:label="@string/title_activity_post" >
+        </activity>
     </application>
 
 </manifest>
