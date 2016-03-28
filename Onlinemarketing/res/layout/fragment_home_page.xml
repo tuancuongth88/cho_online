@@ -8,10 +8,12 @@
     <ListView
         android:id="@+id/listHomePage"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearMenu" >
     </ListView>
 
     <LinearLayout
+        android:id="@+id/linearMenu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -63,17 +63,19 @@ public class NavigationDrawerRightAdapter extends RecyclerView.Adapter<Navigatio
 
 		private ImageView imageview = null;
 		private TextView title = null;
+		private TextView number = null;
 		private AQuery aQuery = null;
 
 		public MyViewHolder(View itemView) {
 			super(itemView);
 			imageview = (ImageView) itemView.findViewById(R.id.imgReghtNavigator);
 			title = (TextView) itemView.findViewById(R.id.title);
+			number = (TextView) itemView.findViewById(R.id.numberRightNavigator);
 			aQuery = new AQuery(itemView);
 		}
 
 		public void init(SettingVO item) {
-			Debug.e("avata aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: "+ item.getAvatar());
+			Debug.e("avata aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: " + item.getAvatar());
 			Bitmap bitmap = aQuery.getCachedImage(item.getAvatar());
 			if (bitmap != null) {
 				aQuery.id(imageview).image(bitmap);
@@ -81,6 +83,7 @@ public class NavigationDrawerRightAdapter extends RecyclerView.Adapter<Navigatio
 				aQuery.id(imageview).image(item.getAvatar(), true, true, 0, R.drawable.ic_launcher);
 			}
 			title.setText(item.getName());
+			number.setText(item.getQuantily().replace("null", ""));
 		}
 	}
 }

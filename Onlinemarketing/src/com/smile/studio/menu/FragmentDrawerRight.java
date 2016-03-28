@@ -2,6 +2,7 @@ package com.smile.studio.menu;
 
 import java.util.ArrayList;
 
+import com.androidquery.AQuery;
 import com.example.onlinemarketing.R;
 import com.lib.Debug;
 import com.lib.recycler.OnItemTouchListener;
@@ -21,12 +22,14 @@ import com.onlinemarketing.json.JsonSetting;
 import com.onlinemarketing.object.OutputProduct;
 import com.onlinemarketing.object.ProfileVO;
 import com.onlinemarketing.object.SettingVO;
+import com.onlinemarketing.util.Util;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,10 +59,10 @@ public class FragmentDrawerRight extends Fragment implements OnClickListener {
 	private FragmentDrawerListener drawerListener = null;
 	TextView txtalert, txt_nameNavigaterReight;
 	Context context;
-	ImageView imgNavigator;
+	ImageView imgNavigator,imgAvataNavigator;
 	static Dialog dialog;
 	Button btnOk, btnCancle;
-
+	private AQuery aQuery;
 	public FragmentDrawerRight() {
 
 	}
@@ -72,6 +75,9 @@ public class FragmentDrawerRight extends Fragment implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		new SettingAsystask().execute();
+		if (!SystemConfig.session_id.isEmpty()) {
+			new getProfileAsystask().execute();
+		}
 	}
 
 	@Override
@@ -82,15 +88,9 @@ public class FragmentDrawerRight extends Fragment implements OnClickListener {
 		recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 		imgNavigator = (ImageView) layout.findViewById(R.id.imgNavigator);
 		txt_nameNavigaterReight = (TextView) layout.findViewById(R.id.txt_nameNavigaterReight);
-
+		imgAvataNavigator = (ImageView) layout.findViewById(R.id.imgAvataNavigator);
+		
 		imgNavigator.setOnClickListener(this);
-		if (!SystemConfig.session_id.isEmpty()) {
-			
-			// Debug.e("Name : " + objprofile.getUsername());
-			// txt_nameNavigaterReight.setText(objprofile.getUsername());
-			
-			new getProfileAsystask().execute();
-		}
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		recyclerView.addOnItemTouchListener(
 				new OnItemTouchListener(getActivity(), recyclerView, new OnItemTouchListener.ClickListener() {
@@ -225,6 +225,16 @@ public class FragmentDrawerRight extends Fragment implements OnClickListener {
 		});
 
 	}
+	
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		new getProfileAsystask().execute();
+		new SettingAsystask().execute();
+		super.onResume();
+	}
+
 
 	public class SettingAsystask extends AsyncTask<Integer, Integer, OutputProduct> {
 		JsonSetting setting;
@@ -319,13 +329,12 @@ public class FragmentDrawerRight extends Fragment implements OnClickListener {
 		@Override
 		protected void onPreExecute() {
 			profile = new JsonProfile();
+			aQuery = new AQuery(context);
 			super.onPreExecute();
 		}
 
 		@Override
 		protected OutputProduct doInBackground(Integer... params) {
-			
-
 			obj  = profile.paserProfile(SystemConfig.user_id, SystemConfig.session_id,
 						SystemConfig.device_id, SystemConfig.statusProfile);
 				SystemConfig.oOputproduct.setProfileVO(obj.getProfileVO());
@@ -336,6 +345,13 @@ public class FragmentDrawerRight extends Fragment implements OnClickListener {
 		protected void onPostExecute(OutputProduct result) {
 			ProfileVO objprofile = SystemConfig.oOputproduct.getProfileVO().get(0);
 			txt_nameNavigaterReight.setText(objprofile.getUsername());
+			Bitmap bitmap = aQuery.getCachedImage(objprofile.getAvatar());
+			if (bitmap != null) {
+				bitmap = Util.getCroppedBitmap(bitmap);
+				aQuery.id(imgAvataNavigator).image(bitmap);
+			} else {
+				aQuery.id(imgAvataNavigator).image(objprofile.getAvatar(), true, true, 0, R.drawable.ic_launcher);
+			}
 			super.onPostExecute(result);
 		}
 	}

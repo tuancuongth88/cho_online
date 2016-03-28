@@ -27,6 +27,16 @@ public class ProductVO {
 	private String lat, log;
 	private String time_id, phone;
 	private boolean isCheck;
+	private boolean product_saved ;
+	
+	public boolean isProduct_saved() {
+		return product_saved;
+	}
+
+	public void setProduct_saved(boolean product_saved) {
+		this.product_saved = product_saved;
+	}
+
 	private List<String> arrImageDetail;
 	
 	public String getDescription() {

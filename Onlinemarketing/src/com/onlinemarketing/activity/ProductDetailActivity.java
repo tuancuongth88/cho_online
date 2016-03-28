@@ -17,6 +17,7 @@ import com.onlinemarketing.object.Output;
 import com.onlinemarketing.object.OutputProduct;
 import com.onlinemarketing.object.ProductVO;
 import com.onlinemarketing.util.ChatDialog;
+import com.onlinemarketing.util.Util;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import android.app.Dialog;
@@ -236,6 +237,7 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 					txt_contact_Detail.setText(objproductDetail.getCity_name());
 					Bitmap bitmap = aQuery.getCachedImage(objproductDetail.getUser_avatar());
 					if (bitmap != null) {
+						bitmap = Util.getCroppedBitmap(bitmap);
 						aQuery.id(btnPoster).image(bitmap);
 					} else {
 						aQuery.id(btnPoster).image(objproductDetail.getUser_avatar(), true, true, 0, R.drawable.ic_launcher);
@@ -251,6 +253,11 @@ public class ProductDetailActivity extends FragmentActivity implements OnClickLi
 						btnSendSMS_Detail.setClickable(true);
 						btnChatDirectly_Detail.setClickable(true);
 					}
+					if(objproductDetail.isProduct_saved())
+						btnProducSave.setClickable(false);
+					else 
+						btnProducSave.setClickable(true);
+					
 				}
 			}
 			super.onPostExecute(result);

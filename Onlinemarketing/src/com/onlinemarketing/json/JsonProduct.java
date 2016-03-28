@@ -240,6 +240,7 @@ public class JsonProduct {
 				objproduct.setStatus_name(objjson_product.getString("status_name"));
 				objproduct.setUser_name(objjson_product.getString("user_name"));
 				objproduct.setCheck(objjson_product.getBoolean("block"));
+				objproduct.setProduct_saved(objjson_product.getBoolean("product_saved"));
 				JSONArray objImage = objjson_product.getJSONArray("image_list");
 
 				for (int i = 0; i < objImage.length(); i++) {
