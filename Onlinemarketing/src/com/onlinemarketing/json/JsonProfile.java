@@ -117,7 +117,10 @@ public class JsonProfile {
 					request.append("&address=").append(URLEncoder.encode(profile.getAddress(), "UTF-8"));
 					request.append("&password=").append(URLEncoder.encode(profile.getPass(), "UTF-8"));
 					request.append("&old_password=").append(URLEncoder.encode(profile.getOld_pass(), "UTF-8"));
-					request.append("&avatar=").append(URLEncoder.encode(profile.getAvatar(), "UTF-8"));
+					if(profile.getAvatar() != null)
+						request.append("&avatar=").append(URLEncoder.encode(profile.getAvatar(), "UTF-8"));
+					else
+						request.append("&avatar=");
 					Debug.e("link aaaaaaaaaaaaaaaa: "+ request.toString());
 					str = Util.getjSonUrl(request.toString(), SystemConfig.httppost);
 					Debug.e("Str: "+str);

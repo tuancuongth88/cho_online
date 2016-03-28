@@ -6,5 +6,12 @@
 	<classpathentry kind="lib" path="E:/AndroidIDE/sdk/platforms/android-16/android.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+<<<<<<< HEAD
+=======
+	<classpathentry kind="lib" path="E:/AndroidIDE/sdk/platforms/android-16/android.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-async-http-1.4.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.3.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/httpcore-4.3.3.jar"/>
+>>>>>>> d35a81b264554ca06974fa7454cc79697a4f2436
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

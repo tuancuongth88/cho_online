@@ -32,5 +32,6 @@ public View onCreateView(LayoutInflater inflater,
 		super.onViewCreated(view, savedInstanceState);
 		ImageView img = (ImageView) view.findViewById(R.id.imageView1);
 		img.setImageResource(this.img);
+		
 	}
 }

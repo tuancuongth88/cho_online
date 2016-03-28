@@ -3,6 +3,7 @@
     android:id="@+id/linearLayoutChat"
     android:layout_width="300dp"
     android:layout_height="400dp"
+    android:background="#FFFFFF"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -16,28 +17,28 @@
             android:id="@+id/btnMessageChat"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Tin nhắn" />
+            android:background="#B23C3C"
+            android:text="Tin nhắn"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnListMessagesChat"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Danh sách" />
+            android:background="#383A47"
+            android:text="Danh sách"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <!--
-         <TextView
-        android:id="@+id/txtShowMessageChat"
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"/>
-    -->
-
-    <ScrollView
-        android:layout_width="314dp"
-        android:layout_height="313dp" >
+        android:layout_weight="1"
+        android:background="#E5E5E5" >
 
         <TableLayout
             android:id="@+id/tab"
@@ -57,16 +58,19 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:hint="nhap text"
+            android:hint="Viết tin nhắn..."
+            android:background="@android:color/transparent"
             android:inputType="textMultiLine"
+            android:layout_marginLeft="5dp"
             android:lines="1" />
 
         <Button
             android:id="@+id/btnSendChat"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="gui" />
+            android:layout_weight="6"
+            android:background="@drawable/icon_send"
+            />
     </LinearLayout>
 
 </LinearLayout>

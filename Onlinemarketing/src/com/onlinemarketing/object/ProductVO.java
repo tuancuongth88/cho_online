@@ -1,8 +1,14 @@
 package com.onlinemarketing.object;
 
+import java.util.List;
+
 public class ProductVO {
 	private int id;
 	private String name;
+	private String description;
+	private String category_name;
+	private String type_name;
+	private String city_name;
 	private String avatar;
 	private String price;
 	private int price_id;
@@ -12,12 +18,91 @@ public class ProductVO {
 	private int city_id;
 	private String startdate;
 	private int status;
+	private String status_name;
+	private String user_name;
+	private String user_avatar;
 	private int position;
 	private String delete_at;
 	private String create_at;
 	private String lat, log;
-	private String time_id;
+	private String time_id, phone;
 	private boolean isCheck;
+	private boolean product_saved ;
+	
+	public boolean isProduct_saved() {
+		return product_saved;
+	}
+
+	public void setProduct_saved(boolean product_saved) {
+		this.product_saved = product_saved;
+	}
+
+	private List<String> arrImageDetail;
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCategory_name() {
+		return category_name;
+	}
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+
+	public String getType_name() {
+		return type_name;
+	}
+
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
+	}
+
+	public String getCity_name() {
+		return city_name;
+	}
+
+	public void setCity_name(String city_name) {
+		this.city_name = city_name;
+	}
+
+	public String getStatus_name() {
+		return status_name;
+	}
+
+	public void setStatus_name(String status_name) {
+		this.status_name = status_name;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getUser_avatar() {
+		return user_avatar;
+	}
+
+	public void setUser_avatar(String user_avatar) {
+		this.user_avatar = user_avatar;
+	}
+
+	public List<String> getArrImageDetail() {
+		return arrImageDetail;
+	}
+
+	public void setArrImageDetail(List<String> arrImageDetail) {
+		this.arrImageDetail = arrImageDetail;
+	}
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -104,6 +189,14 @@ public class ProductVO {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public int getPosition() {

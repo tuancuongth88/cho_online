@@ -156,6 +156,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="center_vertical"
                     android:hint="Giá"
+                    android:inputType="number"
                     android:textColor="#343B43" >
                 </EditText>
 
@@ -202,7 +203,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:background="#B23C3C"
-                android:text="Đăng nhập"
+                android:text="Đăng bài"
                 android:textColor="#FFFFFF" >
             </Button>
         </LinearLayout>

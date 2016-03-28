@@ -10,10 +10,10 @@
     android:paddingTop="5dp" >
 
     <ImageView
-        android:id="@+id/imageview"
+        android:id="@+id/imgReghtNavigator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="2.5"
         android:src="@drawable/ic_launcher" />
 
     <TextView
@@ -23,6 +23,15 @@
         android:layout_weight="1"
         android:paddingLeft="10dp"
         android:textColor="#383A49"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+     <TextView
+        android:id="@+id/numberRightNavigator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:paddingLeft="10dp"
+        android:textColor="#B23C3C"
         android:textSize="16sp"
         android:textStyle="bold" />
 

@@ -8,20 +8,28 @@ import com.lib.Debug;
 import com.onlinemarketing.config.Constan;
 import com.onlinemarketing.config.SystemConfig;
 import com.onlinemarketing.fragment.FragmentCategory;
+<<<<<<< HEAD
 import com.onlinemarketing.json.JsonSearch;
 import com.onlinemarketing.object.CategoryVO;
 import com.onlinemarketing.object.Output;
+=======
+>>>>>>> d35a81b264554ca06974fa7454cc79697a4f2436
 import com.onlinemarketing.object.OutputProduct;
 import com.onlinemarketing.object.SettingVO;
 import com.smile.studio.menu.FragmentDrawerLeft;
 import com.smile.studio.menu.FragmentDrawerLeft.FragmentDrawerListener;
 
+<<<<<<< HEAD
 import android.app.Dialog;
 import android.os.AsyncTask;
+=======
+>>>>>>> d35a81b264554ca06974fa7454cc79697a4f2436
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+<<<<<<< HEAD
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +40,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+=======
+import android.view.View;
+>>>>>>> d35a81b264554ca06974fa7454cc79697a4f2436
 
 public class MainActivity extends ActionBarActivity implements FragmentDrawerListener {
 
@@ -75,8 +86,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawerLis
 
 	@Override
 	public void onDrawerItemSelected(View view, int position) {
-		Debug.e("sssssssssss");
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

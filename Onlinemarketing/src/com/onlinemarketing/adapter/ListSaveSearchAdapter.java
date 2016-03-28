@@ -3,14 +3,20 @@ package com.onlinemarketing.adapter;
 import java.util.ArrayList;
 
 import com.example.onlinemarketing.R;
+import com.onlinemarketing.config.SystemConfig;
+import com.onlinemarketing.json.JsonProduct;
+import com.onlinemarketing.object.Output;
 import com.onlinemarketing.object.ProductVO;
 
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListSaveSearchAdapter extends BaseAdapter {
@@ -59,16 +65,13 @@ public class ListSaveSearchAdapter extends BaseAdapter {
 
 	public class ViewHolder {
 		TextView txtname;
-		public CheckBox check;
 
 		public void setData(ProductVO productVO) {
 			txtname.setText(productVO.getName());
-			check.setChecked(productVO.isCheck());
 		}
 
 		public ViewHolder(View view) {
 			txtname = (TextView) view.findViewById(R.id.txtNameListSearch);
-			check = (CheckBox) view.findViewById(R.id.imgDeleteListSearch);
 		}
 
 		public ViewHolder() {
@@ -92,21 +95,50 @@ public class ListSaveSearchAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if (type == 0) {
-			holder.check.setVisibility(View.GONE);
-		} else if (type == 1) {
-			holder.check.setVisibility(View.VISIBLE);
-		}
 		holder.setData(list.get(position));
-		holder.check.setOnClickListener(new OnClickListener() {
-
+		ImageView imgDeleteListSearch = (ImageView) convertView.findViewById(R.id.imgDeleteListSearch);
+		imgDeleteListSearch.setTag(position);
+		imgDeleteListSearch.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				callback.callbackDeletePosition(position);
+				Integer index = (Integer) v.getTag();
+				int id = index;
+				new AsystarkDeleteSearchSave().execute(id);
 			}
 		});
 		return convertView;
+	}
+	class AsystarkDeleteSearchSave extends AsyncTask<Integer, Void, Output>{
+		JsonProduct obj ;
+		Output output;
+		int position;
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			
+			obj = new JsonProduct();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Output doInBackground(Integer... params) {
+			position =params[0]; 
+			int id = list.get(position).getId();
+			output = obj.paserDeleteBackListAndFavorite(SystemConfig.user_id, SystemConfig.session_id, SystemConfig.device_id, id, SystemConfig.statusDeleteSearch);
+			return output;
+		}
+		
+		@Override
+		protected void onPostExecute(Output result) {
+			// TODO Auto-generated method stub
+			if(result.getCode()==200){
+			list.remove(position);
+			notifyDataSetChanged();
+			}
+			super.onPostExecute(result);
+		}
+		
 	}
 
 }

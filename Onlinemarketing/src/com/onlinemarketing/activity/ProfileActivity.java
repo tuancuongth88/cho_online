@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.example.onlinemarketing.R;
@@ -30,6 +32,7 @@ import com.onlinemarketing.config.SystemConfig;
 import com.onlinemarketing.json.JsonProfile;
 import com.onlinemarketing.object.Output;
 import com.onlinemarketing.object.ProfileVO;
+import com.onlinemarketing.util.Util;
 
 public class ProfileActivity extends BaseActivity implements OnClickListener {
 
@@ -38,13 +41,15 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 	ProfileVO profile = new ProfileVO();
 	Output out;
 	ImageView imgAvatar;
-	EditText editName, editPhone, editMail, editAdd, editPass, editConfigPass;
-	Button btnApprovePhone, btnSave, btnBacklist;
+	EditText editName, editPhone, editAdd, editPass, editConfigPass;
+	Button btnSave, btnBacklist;
+	TextView btnApprovePhone, editMail;
 	Uri selectedUriImage;
 	String picturePath;
 	Bitmap selectedBitmap;
 	private Uri fileUri;
 	private AQuery aQuery;
+	ProgressDialog prgDialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_profile);
@@ -52,14 +57,14 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		imgAvatar = (ImageView) findViewById(R.id.imgAvatar_profile);
 		editName = (EditText) findViewById(R.id.editName_profile);
-		editMail = (EditText) findViewById(R.id.editEmail_profile);
+		editMail = (TextView) findViewById(R.id.editEmail_profile);
 		editAdd = (EditText) findViewById(R.id.editAddress_profile);
 		editPass = (EditText) findViewById(R.id.editPass_profile);
 		editConfigPass = (EditText) findViewById(R.id.editConfigPass_profile);
 		editPhone = (EditText) findViewById(R.id.editPhone_profile);
-		btnApprovePhone = (Button) findViewById(R.id.btnApprovePhone_profile);
+		btnApprovePhone = (TextView) findViewById(R.id.btnApprovePhone_profile);
 		btnSave = (Button) findViewById(R.id.btnSave_profile);
-//		imgAvatar = (ImageView) findViewById(R.id.imgAvatar_profile);
+		// imgAvatar = (ImageView) findViewById(R.id.imgAvatar_profile);
 		btnBacklist = (Button) findViewById(R.id.btnBackList);
 		btnBacklist.setOnClickListener(this);
 		imgAvatar.setOnClickListener(this);
@@ -69,33 +74,35 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void setData(ArrayList<ProfileVO> proVo) {
-		
 		ProfileVO obj = proVo.get(0);
-//		imgAvatar.setImageResource(Integer.parseInt(proVo.get)));
-//		Drawable drawable = LoadImageFromWebOperations(obj.getAvatar());
-//		imgAvatar.setImageDrawable(drawable);
+		prgDialog = new ProgressDialog(this);
+		prgDialog.setMessage("Please wait...");
+		prgDialog.setCancelable(false);
+
 		Bitmap bitmap = aQuery.getCachedImage(obj.getAvatar());
-		if(bitmap!=null){
-		    aQuery.id(imgAvatar).image(bitmap);
-		   } else {
-		    aQuery.id(imgAvatar).image(obj.getAvatar(), true, true, 0, R.drawable.ic_launcher);
-		   }
+		if (bitmap != null) {
+			bitmap = Util.getCroppedBitmap(bitmap);
+			aQuery.id(imgAvatar).image(bitmap);
+		} else {
+			aQuery.id(imgAvatar).image(obj.getAvatar(), true, true, 0, R.drawable.ic_launcher);
+		}
 		editName.setText(obj.getUsername());
 		editPhone.setText(obj.getPhone());
 		editMail.setText(obj.getEmail());
 		editAdd.setText(obj.getAddress());
 	}
-	  private Drawable LoadImageFromWebOperations(String url)
-	    {
-	          try{
-	        InputStream is = (InputStream) new URL(url).getContent();
-	        Drawable d = Drawable.createFromStream(is, "");
-	        return d;
-	      }catch (Exception e) {
-	        System.out.println("Exc="+e);
-	        return null;
-	      }
-	    }
+
+	private Drawable LoadImageFromWebOperations(String url) {
+		try {
+			InputStream is = (InputStream) new URL(url).getContent();
+			Drawable d = Drawable.createFromStream(is, "");
+			return d;
+		} catch (Exception e) {
+			System.out.println("Exc=" + e);
+			return null;
+		}
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -113,8 +120,7 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		case R.id.btnApprovePhone_profile:
 			break;
 		case R.id.btnBackList:
-			startActivity(new Intent(ProfileActivity.this,
-					BackListActivity.class));
+			startActivity(new Intent(ProfileActivity.this, BackListActivity.class));
 			break;
 		case R.id.imgAvatar_profile:
 			getGallery();
@@ -123,9 +129,9 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public ContentResolver getGallery() {
-		 Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		  i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		  startActivityForResult(i, PICK_IMAGE);
+		Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+		startActivityForResult(i, PICK_IMAGE);
 		return null;
 	}
 
@@ -135,29 +141,29 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 			selectedUriImage = data.getData();
 			picturePath = getPicturePath(selectedUriImage);
 			selectedBitmap = getThumbnail(picturePath);
-			selectedBitmap = rotateImageIfRequired(selectedBitmap,
-					selectedUriImage);
+			selectedBitmap = rotateImageIfRequired(selectedBitmap, selectedUriImage);
+			selectedBitmap = Util.getCroppedBitmap(selectedBitmap);
 			new UpdateAsystask().execute(Constan.getIntProperty("status_upload_avatar"));
-			
+
 		}
 
 	}
+
 	public Bitmap getThumbnail(String pathHinh) {
 		BitmapFactory.Options bounds = new BitmapFactory.Options();
 		bounds.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(pathHinh, bounds);
 		if ((bounds.outWidth == -1) || (bounds.outHeight == -1))
 			return null;
-		int originalSize = (bounds.outHeight > bounds.outWidth) ? bounds.outHeight
-				: bounds.outWidth;
+		int originalSize = (bounds.outHeight > bounds.outWidth) ? bounds.outHeight : bounds.outWidth;
 		BitmapFactory.Options opts = new BitmapFactory.Options();
 		opts.inSampleSize = originalSize / 500;
 		return BitmapFactory.decodeFile(pathHinh, opts);
 	}
+
 	public String getPicturePath(Uri uriImage) {
 		String[] filePathColumn = { MediaStore.Images.Media.DATA };
-		Cursor cursor = getContentResolver().query(uriImage, filePathColumn,
-				null, null, null);
+		Cursor cursor = getContentResolver().query(uriImage, filePathColumn, null, null, null);
 		cursor.moveToFirst();
 
 		int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -165,24 +171,24 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		cursor.close();
 		return path;
 	}
+
 	private Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) {
 		// Detect rotation
 		int rotation = getRotation();
 		if (rotation != 0) {
 			Matrix matrix = new Matrix();
 			matrix.postRotate(rotation);
-			Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(),
-					img.getHeight(), matrix, true);
+			Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
 			img.recycle();
 			return rotatedImg;
 		} else {
 			return img;
 		}
 	}
+
 	private int getRotation() {
 		String[] filePathColumn = { MediaStore.Images.Media.ORIENTATION };
-		Cursor cursor = getContentResolver().query(selectedUriImage,
-				filePathColumn, null, null, null);
+		Cursor cursor = getContentResolver().query(selectedUriImage, filePathColumn, null, null, null);
 		cursor.moveToFirst();
 
 		int rotation = 0;
@@ -190,7 +196,6 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		cursor.close();
 		return rotation;
 	}
-	
 
 	public class UpdateAsystask extends AsyncTask<Integer, String, Output> {
 
@@ -199,26 +204,29 @@ public class ProfileActivity extends BaseActivity implements OnClickListener {
 		@Override
 		protected void onPreExecute() {
 			jsonProfile = new JsonProfile();
+			 prgDialog.show();
 			super.onPreExecute();
 		}
 
 		@Override
 		protected Output doInBackground(Integer... params) {
-			if(params[0] == Constan.getIntProperty("status_upload_avatar")){
-				out = jsonProfile.doFileUpload(SystemConfig.user_id, SystemConfig.session_id, SystemConfig.device_id, picturePath);
-			}else  {
-				out = jsonProfile.postPaserProfile(SystemConfig.user_id,
-						SystemConfig.session_id, SystemConfig.device_id, profile);
+			if (params[0] == Constan.getIntProperty("status_upload_avatar")) {
+				out = jsonProfile.doFileUpload(SystemConfig.user_id, SystemConfig.session_id, SystemConfig.device_id,
+						picturePath);
+			} else {
+				out = jsonProfile.postPaserProfile(SystemConfig.user_id, SystemConfig.session_id,
+						SystemConfig.device_id, profile);
 			}
 			return out;
 		}
 
 		@Override
 		protected void onPostExecute(Output result) {
-			 if (result.getCode() == Constan.getIntProperty("success")) {
-				 	Debug.showAlert(ProfileActivity.this, result.getMessage());
-				 	imgAvatar.setImageBitmap(selectedBitmap);
-			 }
+			prgDialog.dismiss();
+			if (result.getCode() == Constan.getIntProperty("success")) {
+				Debug.showAlert(ProfileActivity.this, result.getMessage());
+				imgAvatar.setImageBitmap(selectedBitmap);
+			}
 			super.onPostExecute(result);
 		}
 

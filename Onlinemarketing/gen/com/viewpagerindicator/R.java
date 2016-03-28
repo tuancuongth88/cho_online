@@ -84,6 +84,7 @@ public final class R {
 		public static final int default_title_indicator_top_padding = 0x7f0a000c;
 	}
 	public static final class drawable {
+<<<<<<< HEAD
 		public static final int vpi__tab_indicator = 0x7f0200b0;
 		public static final int vpi__tab_selected_focused_holo = 0x7f0200b1;
 		public static final int vpi__tab_selected_holo = 0x7f0200b2;
@@ -91,6 +92,15 @@ public final class R {
 		public static final int vpi__tab_unselected_focused_holo = 0x7f0200b4;
 		public static final int vpi__tab_unselected_holo = 0x7f0200b5;
 		public static final int vpi__tab_unselected_pressed_holo = 0x7f0200b6;
+=======
+		public static final int vpi__tab_indicator = 0x7f0200b9;
+		public static final int vpi__tab_selected_focused_holo = 0x7f0200ba;
+		public static final int vpi__tab_selected_holo = 0x7f0200bb;
+		public static final int vpi__tab_selected_pressed_holo = 0x7f0200bc;
+		public static final int vpi__tab_unselected_focused_holo = 0x7f0200bd;
+		public static final int vpi__tab_unselected_holo = 0x7f0200be;
+		public static final int vpi__tab_unselected_pressed_holo = 0x7f0200bf;
+>>>>>>> d35a81b264554ca06974fa7454cc79697a4f2436
 	}
 	public static final class id {
 		public static final int bottom = 0x7f060003;

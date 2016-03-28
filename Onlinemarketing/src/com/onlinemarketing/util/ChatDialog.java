@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -41,12 +42,13 @@ public class ChatDialog {
 	ListMessageAdapter adapterListMessage;
 	static Dialog dialog;
 	Button btn_SMS, btnListChat, btnSend, btnOk, btnCancle;
+	ImageView blockchat;
 	EditText editMessage, editSendMessage;
 	TextView txtShowMessageChat, txtalert;
 	TableLayout tab;
 	static String messageMsg;
 	int idProduct;
-	static int chat_id_room;
+	static int chat_id_room, abc;
 	static int id_send;
 	static int message_id;
 	int status_callWS = 0;
@@ -79,6 +81,11 @@ public class ChatDialog {
 			status_callWS = SystemConfig.statusDeleteGroupMessage;
 			new MessageAsystask().execute(status);
 		}
+		else if (status == SystemConfig.statusBlockUser) {
+			status_callWS = SystemConfig.statusBlockUser;
+			new MessageAsystask().execute(status);
+		}
+		
 	}
 
 	public void dialogListMessage() {
@@ -94,6 +101,7 @@ public class ChatDialog {
 					int position, long id) {
 				// idProduct = listMessage.get(position).getReceiver_id();
 				chat_id_room = listMessage.get(position).getReceiver_id();
+				abc = chat_id_room;
 				ChatDialog chat = new ChatDialog(context);
 				chat.run(SystemConfig.statusGetHistoryMessage);
 				dialogChat(idProduct);
@@ -103,7 +111,7 @@ public class ChatDialog {
 		dialogListMsg.show();
 	}
 
-	public Dialog dialogChat(int iduser) {
+	public Dialog dialogChat(final int iduser) {
 		dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.dialog_chat);
@@ -116,7 +124,7 @@ public class ChatDialog {
 		dialog.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				com.lib.Debug.showAlert(context, "Chet chu con");
+				//bat su kien thoat
 			}
 		});
 		btnListChat.setOnClickListener(new OnClickListener() {
@@ -134,6 +142,11 @@ public class ChatDialog {
 			@Override
 			public void onClick(View v) {
 				messageMsg = editSendMessage.getText().toString();
+				if(iduser > 0){
+					chat_id_room = iduser;
+				}else{
+					chat_id_room = abc;
+				}
 				run(SystemConfig.statusSendMessage);
 //				setStyleSendMessage(editSendMessage.getText().toString(), 0);
 				
@@ -284,6 +297,10 @@ public class ChatDialog {
 						message_id);
 			case SystemConfig.statusDeleteGroupMessage:
 				oOputMsg = message.paserDeleteGroupMsg(SystemConfig.user_id,
+						SystemConfig.session_id, SystemConfig.device_id,
+						idProduct);
+			case SystemConfig.statusBlockUser:
+				oOputMsg = message.paserBlockUser(SystemConfig.user_id,
 						SystemConfig.session_id, SystemConfig.device_id,
 						idProduct);
 			}

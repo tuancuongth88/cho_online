@@ -9,7 +9,14 @@ public class OutputProduct {
 	private ArrayList<CategoryVO> categoryVO;
 	private ArrayList<SettingVO> settingVO;
 	private ArrayList<ProfileVO> profileVO;
+	private ArrayList<ProfileVO> profileDetailVO;
 	
+	public ArrayList<ProfileVO> getProfileDetailVO() {
+		return profileDetailVO;
+	}
+	public void setProfileDetailVO(ArrayList<ProfileVO> profileDetailVO) {
+		this.profileDetailVO = profileDetailVO;
+	}
 	public ArrayList<ProfileVO> getProfileVO() {
 		return profileVO;
 	}

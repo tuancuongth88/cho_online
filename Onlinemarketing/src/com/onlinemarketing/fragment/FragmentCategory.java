@@ -6,6 +6,7 @@ import com.example.onlinemarketing.R;
 import com.onlinemarketing.activity.FavoriteActivity;
 import com.onlinemarketing.activity.LoginActivity;
 import com.onlinemarketing.activity.MainActivity;
+import com.onlinemarketing.activity.PostActivity;
 import com.onlinemarketing.activity.ProductDetailActivity;
 import com.onlinemarketing.activity.ProfileActivity;
 import com.onlinemarketing.activity.SaveNewsListActivity;
@@ -23,6 +24,7 @@ import com.onlinemarketing.object.ProfileVO;
 import com.onlinemarketing.util.ChatDialog;
 import com.smile.android.gsm.utils.AndroidUtils;
 import com.smile.studio.menu.FragmentDrawerLeft;
+import com.smile.studio.menu.FragmentDrawerRight;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -40,6 +42,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -67,7 +70,7 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 	TableLayout tab;
 	public static OutputMessage oOputMsg;
 	ArrayList<MessageVO> listMessage = new ArrayList<MessageVO>();
-
+	ImageView imgPost;
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
@@ -99,13 +102,22 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		btnProfile = (Button) rootView
 				.findViewById(R.id.btnProfile_FragmentCategory);
 		listview = (ListView) rootView.findViewById(R.id.listHomePage);
+		imgPost = (ImageView) rootView.findViewById(R.id.imgPostHomepage);
+		imgPost.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
 		btnHome.setOnClickListener(this);
 		btnChat.setOnClickListener(this);
 		btnFavorite.setOnClickListener(this);
 		btnProfile.setOnClickListener(this);
-		new HomeAsystask().execute(FragmentDrawerLeft.status);
+		new HomeAsystask().execute(MainActivity.status);
 		return rootView;
+	}
+	public void callAsystask(int status, Context contectcall){
+		if(status == SystemConfig.statusListSaveProduct){
+			context = contectcall;
+			this.status = status;
+			new HomeAsystask().execute(status);
+		}
 	}
 
 	public class HomeAsystask extends
@@ -120,6 +132,7 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 		@Override
 		protected void onPreExecute() {
 			product = new JsonProduct();
+			
 			progressDialog = new ProgressDialog(context);
 			// Set progressdialog message
 			progressDialog.setMessage("Loading...");
@@ -160,19 +173,21 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 
 		@Override
 		protected void onPostExecute(OutputProduct result) {
-			adapter = new HomePageAdapter(context, R.layout.item_trang_chu,
-					list);
-			listview.setAdapter(adapter);
-			progressDialog.dismiss();
 			if (result.getCode() == Constan.getIntProperty("success")
 					&& status == SystemConfig.statusListSaveProduct) {
 				startActivity(new Intent(context, SaveNewsListActivity.class));
+			}else {
+			adapter = new HomePageAdapter(context, R.layout.item_trang_chu,
+					list);
+			listview.setAdapter(adapter);
 			}
+			progressDialog.dismiss();
 		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		ProductDetailActivity.id_product = list.get(arg2).getId();
 		startActivity(new Intent(context, ProductDetailActivity.class));
 
 	}
@@ -203,7 +218,11 @@ public class FragmentCategory extends Fragment implements OnItemClickListener,
 			new getProfileAndFavoriteAsystask()
 					.execute(SystemConfig.statusProfile);
 			break;
+		case R.id.imgPostHomepage:
+			startActivity(new Intent(context, PostActivity.class));
+			break;
 		}
+		
 	}	
 
 	public class getProfileAndFavoriteAsystask extends

@@ -26,29 +26,26 @@ import android.widget.Button;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ListSaveSearchActivity extends BaseActivity
-		implements OnItemClickListener, OnItemLongClickListener, CallbackPosition, OnClickListener {
+		implements OnItemClickListener,  CallbackPosition, OnClickListener {
 
 	ListView listview;
 	ListSaveSearchAdapter adapter;
 	OutputProduct oOput;
-	CheckBox check;
-	Button btnDelete;
 	Output out;
 	ViewHolder viewHolder;
-
+	ImageView imgBack;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_save_search);
-		check = (CheckBox) findViewById(R.id.imgDeleteListSearch);
-		btnDelete = (Button) findViewById(R.id.button1);
 		listview = (ListView) findViewById(R.id.listSaveSearch);
+		imgBack = (ImageView) findViewById(R.id.imgBackTitle);
+		imgBack.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
-		listview.setOnItemLongClickListener(this);
-		btnDelete.setOnClickListener(this);
 		if (isConnect()) {
 			new ListSaveSearchAsystask().execute();
 		}
@@ -62,28 +59,10 @@ public class ListSaveSearchActivity extends BaseActivity
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		startActivity(new Intent(ListSaveSearchActivity.this, BackListActivity.class));
+//		startActivity(new Intent(ListSaveSearchActivity.this, BackListActivity.class));
 		//
 	}
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) {
-		if (ListSaveSearchAdapter.type == 0) {
-			ListSaveSearchAdapter.type = 1;
-			btnDelete.setVisibility(View.VISIBLE);
-
-			listview.post(new Runnable() {
-
-				@Override
-				public void run() {
-					listview.setSelection(arg2);
-				}
-			});
-			adapter.notifyDataSetChanged();
-		}
-		Debug.showAlert(this, "Bối Rối quá");
-		return true;
-	}
 
 	public class ListSaveSearchAsystask extends AsyncTask<Integer, String, OutputProduct> {
 		JsonSearch jsonListSaveSearch;
@@ -117,6 +96,7 @@ public class ListSaveSearchActivity extends BaseActivity
 
 	@Override
 	public void onClick(View v) {
+		this.finish();
 //		ArrayList<ProductVO> deletelist = new ArrayList<ProductVO>();
 //		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
 //		for (int i = 0; i < adapter.getList().size(); i++) {
@@ -126,9 +106,9 @@ public class ListSaveSearchActivity extends BaseActivity
 //				deletelist.add(adapter.getList().get(i));
 //			}
 //		}
-		if (isConnect()) {
-			new DeleteAsynTask().execute();
-		}
+//		if (isConnect()) {
+//			new DeleteAsynTask().execute();
+//		}
 	}
 	public class DeleteAsynTask extends AsyncTask<Integer, String, Output> {
 

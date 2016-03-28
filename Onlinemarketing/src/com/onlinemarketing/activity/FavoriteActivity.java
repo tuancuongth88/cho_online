@@ -23,30 +23,34 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class FavoriteActivity extends BaseActivity implements OnItemClickListener{
+public class FavoriteActivity extends BaseActivity implements OnItemClickListener, OnClickListener{
 
 	ListView listview;
 	FavoriteAdapter adapter;
-	private int id_delete , positon;
-//	List<ProfileVO> list = new ArrayList<ProfileVO>();
+	private int id_delete, positon;
+	// List<ProfileVO> list = new ArrayList<ProfileVO>();
 	static Output out;
 	Dialog dialog;
 	Button btnOk, btnCancle;
-	
+	ImageView imgBack;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_favorite);
 		listview = (ListView) findViewById(R.id.listFavorite);
+		imgBack = (ImageView) findViewById(R.id.imgBackTitle);
+		imgBack.setOnClickListener(this);
 		Debug.e("list favorite : " + SystemConfig.oOputproduct.getProfileVO());
-		adapter = new FavoriteAdapter(this, R.layout.item_favorite, SystemConfig.oOputproduct.getProfileVO());
-		listview.setAdapter(adapter);
+		if (SystemConfig.oOputproduct.getProfileVO() != null) {
+			adapter = new FavoriteAdapter(this, R.layout.item_favorite, SystemConfig.oOputproduct.getProfileVO());
+			listview.setAdapter(adapter);
+		}
 		listview.setOnItemClickListener(this);
 	}
-
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -54,7 +58,7 @@ public class FavoriteActivity extends BaseActivity implements OnItemClickListene
 		positon = arg2;
 		dialogDelete();
 	}
-	
+
 	public void dialogDelete() {
 		dialog = new Dialog(this);
 		dialog.setContentView(R.layout.dialog_delete);
@@ -80,7 +84,7 @@ public class FavoriteActivity extends BaseActivity implements OnItemClickListene
 		});
 		dialog.show();
 	}
-	
+
 	public class DeleteAsynTask extends AsyncTask<Integer, String, Output> {
 
 		JsonProduct jsonProduct;
@@ -95,9 +99,9 @@ public class FavoriteActivity extends BaseActivity implements OnItemClickListene
 		protected Output doInBackground(Integer... params) {
 			Debug.e("User: " + SystemConfig.user_id + " Session: " + SystemConfig.session_id + " device: "
 					+ SystemConfig.device_id);
-			out = jsonProduct.paserDeleteBackListAndFavorite(SystemConfig.user_id, SystemConfig.session_id, SystemConfig.device_id,
-					id_delete, SystemConfig.statusDeleteFavorite);
-			
+			out = jsonProduct.paserDeleteBackListAndFavorite(SystemConfig.user_id, SystemConfig.session_id,
+					SystemConfig.device_id, id_delete, SystemConfig.statusDeleteFavorite);
+
 			return out;
 		}
 
@@ -106,11 +110,16 @@ public class FavoriteActivity extends BaseActivity implements OnItemClickListene
 			if (result.getCode() == Constan.getIntProperty("success")) {
 				Debug.showAlert(FavoriteActivity.this, result.getMessage());
 				SystemConfig.oOputproduct.getProfileVO().remove(positon);
-				adapter = new FavoriteAdapter(FavoriteActivity.this, R.layout.item_favorite, SystemConfig.oOputproduct.getProfileVO());
+				adapter = new FavoriteAdapter(FavoriteActivity.this, R.layout.item_favorite,
+						SystemConfig.oOputproduct.getProfileVO());
 				Debug.e("danh sach: " + SystemConfig.oOputproduct.getProfileVO().size());
 				listview.setAdapter(adapter);
 			}
 			super.onPostExecute(result);
 		}
+	}
+	@Override
+	public void onClick(View v) {
+		this.finish();
 	}
 }

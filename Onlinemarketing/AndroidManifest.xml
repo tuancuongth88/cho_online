@@ -106,7 +106,15 @@
             android:label="@string/title_activity_list_save_search" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".PostActivity"
+=======
+            android:name="com.onlinemarketing.activity.PromotionActivity"
+            android:label="@string/title_activity_promotion" >
+        </activity>
+        <activity
+            android:name="com.onlinemarketing.activity.PostActivity"
+>>>>>>> d35a81b264554ca06974fa7454cc79697a4f2436
             android:label="@string/title_activity_post" >
         </activity>
     </application>

@@ -3,6 +3,7 @@ package com.smile.studio.menu;
 import com.example.onlinemarketing.R;
 import com.lib.Debug;
 import com.lib.recycler.OnItemTouchListener;
+import com.onlinemarketing.activity.MainActivity;
 import com.onlinemarketing.config.SystemConfig;
 import com.onlinemarketing.fragment.FragmentCategory;
 
@@ -11,6 +12,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,8 +31,6 @@ public class FragmentDrawerLeft extends Fragment {
 	private View containerView = null;
 	private FragmentDrawerListener drawerListener = null;
 
-	public static int id_category;
-	public static int status = SystemConfig.statusHomeProduct;
 	Context context;
 
 	public FragmentDrawerLeft() {
@@ -61,8 +61,13 @@ public class FragmentDrawerLeft extends Fragment {
 					public void onClick(View view, int position) {
 						// drawerListener.onDrawerItemSelected(view, position);
 						// mDrawerLayout.closeDrawer(containerView);
-						id_category = SystemConfig.oOputproduct.getCategoryVO().get(position - 1).getId();
-						status = SystemConfig.statusCategoryProduct;
+						MainActivity.id_category = SystemConfig.oOputproduct.getCategoryVO().get(position ).getId();
+						MainActivity.status = SystemConfig.statusCategoryProduct;
+						FragmentManager fragmentManager = getFragmentManager();
+						fragmentManager
+								.beginTransaction()
+								.replace(R.id.container_body,
+										FragmentCategory.newInstance(position + 1)).commit();
 
 					}
 

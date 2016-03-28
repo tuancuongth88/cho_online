@@ -5,24 +5,23 @@
     android:clickable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="10dp" >
-
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_launcher" />
+    android:padding="10dp" >
 
     <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_weight="5"
+        android:src="@drawable/icon_menu_favorite" />
 
 </LinearLayout>
